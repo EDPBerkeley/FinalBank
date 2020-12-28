@@ -40,7 +40,7 @@
             // Select Account view is enabled.
             window.location.replace("Analysis.html");
             $.post("/plaid_token_exchange", {
-              publicToken: public_token
+              publicToken: public_toke
             });
           },
           onExit: function(err, metadata) {
