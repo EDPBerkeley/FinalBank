@@ -454,6 +454,7 @@
             handler = Plaid.create({
               token: data.link_token,
               onSuccess: function (public_token) {
+                window.location.href = "picharts.html";
                 $.post(
                   "/api/set_access_token",
                   {
