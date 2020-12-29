@@ -8,10 +8,12 @@ import datetime
 import plaid
 import json
 import time
+import Backend as be
 from flask import Flask
 from flask import render_template
 from flask import request
 from flask import jsonify
+
 
 app = Flask(__name__)
 
@@ -60,6 +62,27 @@ def index():
   return render_template(
     'index.html',
   )
+
+@app.route('/analysis.html')
+def analysis():
+
+  #Get a JSON of the transactions
+  transactionHistory = get_transactions(30)
+
+
+  #Return a dictionary of the format {category: sum of goods purchased}
+  parsed_transactions = be.parseTransactions(transactionHistory)
+
+  value = parsed_transactions
+
+
+
+
+  return render_template(
+    'analysis.html',
+  )
+
+
 
 # This is an endpoint defined for the OAuth flow to redirect to.
 @app.route('/oauth-response.html')
@@ -188,9 +211,9 @@ def get_auth():
 # Retrieve Transactions for an Item
 # https://plaid.com/docs/#transactions
 @app.route('/api/transactions', methods=['GET'])
-def get_transactions():
+def get_transactions(days):
   # Pull transactions for the last 30 days
-  start_date = '{:%Y-%m-%d}'.format(datetime.datetime.now() + datetime.timedelta(-30))
+  start_date = '{:%Y-%m-%d}'.format(datetime.datetime.now() + datetime.timedelta(-days))
   end_date = '{:%Y-%m-%d}'.format(datetime.datetime.now())
   try:
     transactions_response = client.Transactions.get(access_token, start_date, end_date)
@@ -328,6 +351,9 @@ def pretty_print_response(response):
 
 def format_error(e):
   return {'error': {'display_message': e.display_message, 'error_code': e.code, 'error_type': e.type, 'error_message': e.message } }
+
+
+
 
 if __name__ == '__main__':
     app.run(port=os.getenv('PORT', 8000))
