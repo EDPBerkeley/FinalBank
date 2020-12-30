@@ -1,0 +1,19 @@
+{
+  "friends": [
+    {
+      "Bank Fees": "Banking",
+      "Cash Advance": "Banking",
+      "Community": "Recreation",
+      "Food and Drink": "Food and Drink",
+      "Healthcare": "Healthcare",
+      "Interest": "Banking",
+      "Payment": "Banking",
+      "Recreation": "Recreation",
+      "Service": "Shopping",
+      "Shops": "Shopping",
+      "Tax": "Finances",
+      "Transfer": "Finances",
+      "Travel": "Transportation"
+    }
+  ]
+}
