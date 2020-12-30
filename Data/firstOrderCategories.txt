@@ -11,4 +11,3 @@ Shops
 Tax
 Transfer
 Travel
-gi
