@@ -195,7 +195,7 @@ def get_access_token():
   pretty_print_response(exchange_response)
   access_token = exchange_response['access_token']
   item_id = exchange_response['item_id']
-  return jsonify(exchange_response)
+  return jsonify(exchange_response)k
 
 # Retrieve ACH or ETF account numbers for an Item
 # https://plaid.com/docs/#auth
