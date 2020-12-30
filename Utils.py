@@ -8,7 +8,7 @@ class jsn:
 
 def parseTransactions(transactions):
     #turn the JSON string into a JSON object
-    parsedTransactions = jsn(transactions)
+    parsedTransactions = jsn(transactions.json['transactions'])
 
     #
 

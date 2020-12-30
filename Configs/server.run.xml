@@ -5,7 +5,7 @@
     <option name="PARENT_ENVS" value="true" />
     <envs>
       <env name="PYTHONUNBUFFERED" value="1" />
-      <env name="PLAID_CLIENT_ID" value="5fce6abf09ec710012254400 " />
+      <env name="PLAID_CLIENT_ID" value="5fce6abf09ec710012254400" />
       <env name="PLAID_SECRET" value="b2a1be785c16c4c6555bb69c4ae730" />
       <env name="PLAID_PRODUCTS" value="transactions" />
       <env name="PLAID_COUNTRY_CODES" value="US" />
