@@ -8,7 +8,7 @@ import datetime
 import plaid
 import json
 import time
-import Backend as be
+import Utils as ut
 from flask import Flask
 from flask import render_template
 from flask import request
@@ -71,7 +71,7 @@ def analysis():
 
 
   #Return a dictionary of the format {category: sum of goods purchased}
-  parsed_transactions = be.parseTransactions(transactionHistory)
+  parsed_transactions = ut.parseTransactions(transactionHistory)
 
   value = parsed_transactions
 
