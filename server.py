@@ -158,44 +158,69 @@ def create_link_token_for_payment():
   except plaid.errors.PlaidError as e:
     return jsonify(format_error(e))
 
-@app.route('/api/create_link_token', methods=['POST'])
-def create_link_token():
-  try:
-    response = client.LinkToken.create(
-      {
-        'user': {
-          # This should correspond to a unique id for the current user.
-          'client_user_id': 'user-id',
-        },
-        'client_name': "Plaid Quickstart",
-        'products': PLAID_PRODUCTS,
-        'country_codes': PLAID_COUNTRY_CODES,
-        'language': "en",
-        'redirect_uri': PLAID_REDIRECT_URI,
-      }
-    )
-    pretty_print_response(response)
-    return jsonify(response)
-  except plaid.errors.PlaidError as e:
-    return jsonify(format_error(e))
+# @app.route('/api/create_link_token', methods=['POST'])
+# def create_link_token():
+#   try:
+#     response = client.LinkToken.create(
+#       {
+#         'user': {
+#           # This should correspond to a unique id for the current user.
+#           'client_user_id': 'user-id',
+#         },
+#         'client_name': "Plaid Quickstart",
+#         'products': PLAID_PRODUCTS,
+#         'country_codes': PLAID_COUNTRY_CODES,
+#         'language': "en",
+#         'redirect_uri': PLAID_REDIRECT_URI,
+#       }
+#     )
+#     pretty_print_response(response)
+#     return jsonify(response)
+#   except plaid.errors.PlaidError as e:
+#     return jsonify(format_error(e))
 
 # Exchange token flow - exchange a Link public_token for
 # an API access_token
 # https://plaid.com/docs/#exchange-token-flow
-@app.route('/api/set_access_token', methods=['POST'])
-def get_access_token():
-  global access_token
-  global item_id
-  public_token = request.form['public_token']
-  try:
-    exchange_response = client.Item.public_token.exchange(public_token)
-  except plaid.errors.PlaidError as e:
-    return jsonify(format_error(e))
+# @app.route('/api/set_access_token', methods=['POST'])
+# def get_access_token():
+#   global access_token
+#   global item_id
+#   public_token = request.form['public_token']
+#   try:
+#     exchange_response = client.Item.public_token.exchange(public_token)
+#   except plaid.errors.PlaidError as e:
+#     return jsonify(format_error(e))
+#
+#   pretty_print_response(exchange_response)
+#   access_token = exchange_response['access_token']
+#   item_id = exchange_response['item_id']
+#   return jsonify(exchange_response)
 
-  pretty_print_response(exchange_response)
-  access_token = exchange_response['access_token']
-  item_id = exchange_response['item_id']
-  return jsonify(exchange_response)k
+
+# Bypass Link and create a public token
+@app.route('/sandbox/public_token/create', methods=['GET'])
+def bypass_link():
+  global res
+  res = client.Sandbox.public_token.create(
+          "ins_118923",
+          ['transactions']
+        )
+  return jsonify(res)
+
+
+
+# Bypass Link and create a public token
+@app.route('/sandbox/public_token/create', methods=['GET'])
+def exchange_link_for_access():
+  # The generated public_token can now be
+  # exchanged for an access_token
+  publicToken = res['public_token']
+  access_token = client.Item.public_token.exchange(publicToken)
+  return jsonify(access_token)
+
+
+
 
 # Retrieve ACH or ETF account numbers for an Item
 # https://plaid.com/docs/#auth
