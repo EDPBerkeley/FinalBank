@@ -200,7 +200,7 @@ def create_link_token_for_payment():
 
 # Bypass Link and create a public token
 @app.route('/sandbox/public_token/create', methods=['GET'])
-def bypass_link():
+def get_link():
   global res
   res = client.Sandbox.public_token.create(
           "ins_118923",
@@ -378,6 +378,8 @@ def format_error(e):
   return {'error': {'display_message': e.display_message, 'error_code': e.code, 'error_type': e.type, 'error_message': e.message } }
 
 
+get_link()
+exchange_link_for_access()
 
 
 if __name__ == '__main__':
