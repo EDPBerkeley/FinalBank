@@ -216,6 +216,7 @@ def get_link():
 def exchange_link_for_access():
   # The generated public_token can now be
   # exchanged for an access_token
+  global access_token
   publicToken = res['public_token']
   access_token = client.Item.public_token.exchange(publicToken)
   pretty_print_response(access_token)
