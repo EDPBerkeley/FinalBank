@@ -1,0 +1,2 @@
+Get rid of the bypass methods
+get rid of the "with app context" on the get transactions method
