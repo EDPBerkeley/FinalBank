@@ -219,10 +219,10 @@ def exchange_link_for_access():
   global access_token
   publicToken = res['public_token']
   access_token = client.Item.public_token.exchange(publicToken)
+
+  #Reassign access_token the proper subfield of the access token
+  access_token = access_token['access_token']
   pretty_print_response(access_token)
-
-
-
 
 # Retrieve ACH or ETF account numbers for an Item
 # https://plaid.com/docs/#auth
@@ -239,15 +239,16 @@ def get_auth():
 # https://plaid.com/docs/#transactions
 @app.route('/api/transactions', methods=['GET'])
 def get_transactions(days):
-  # Pull transactions for the last 30 days
-  start_date = '{:%Y-%m-%d}'.format(datetime.datetime.now() + datetime.timedelta(-days))
-  end_date = '{:%Y-%m-%d}'.format(datetime.datetime.now())
-  try:
-    transactions_response = client.Transactions.get(access_token, start_date, end_date)
-  except plaid.errors.PlaidError as e:
-    return jsonify(format_error(e))
-  pretty_print_response(transactions_response)
-  return jsonify(transactions_response)
+  with app.app_context():
+    # Pull transactions for the last 30 days
+    start_date = '{:%Y-%m-%d}'.format(datetime.datetime.now() + datetime.timedelta(-days))
+    end_date = '{:%Y-%m-%d}'.format(datetime.datetime.now())
+    try:
+      transactions_response = client.Transactions.get(access_token, start_date, end_date)
+    except plaid.errors.PlaidError as e:
+      return jsonify(format_error(e))
+    pretty_print_response(transactions_response)
+    return jsonify(transactions_response)
 
 # Retrieve Identity data for an Item
 # https://plaid.com/docs/#identity
