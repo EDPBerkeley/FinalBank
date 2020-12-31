@@ -206,7 +206,8 @@ def get_link():
           "ins_118923",
           ['transactions']
         )
-  return jsonify(res)
+  pretty_print_response(res)
+
 
 
 
@@ -217,7 +218,7 @@ def exchange_link_for_access():
   # exchanged for an access_token
   publicToken = res['public_token']
   access_token = client.Item.public_token.exchange(publicToken)
-  return jsonify(access_token)
+  pretty_print_response(access_token)
 
 
 
@@ -380,7 +381,8 @@ def format_error(e):
 
 get_link()
 exchange_link_for_access()
-
+analysis()
+x = 10
 
 if __name__ == '__main__':
     app.run(port=os.getenv('PORT', 8000))
