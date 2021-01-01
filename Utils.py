@@ -7,10 +7,29 @@ class jsn:
         self.__dict__ = j.load(jsn)
 
 def parseTransactions(transactions):
-    #turn the JSON string into a JSON object
-    parsedTransactions = jsn(transactions.json['transactions'])
+    #assign a variable to represent the transactions
+    parsedTransactions = transactions.json['transactions']
 
-    #
+    #Open the empty categories json file
+    with open("Data/emptyCategories.json") as jsonFile:
+        emptyCategories = j.load(jsonFile)
 
+    fullCategories = emptyCategories
+    # Open the empty categories json file
+    with open("Data/categoryRelationships.json") as jsonFile:
+        categoryRelationships = j.load(jsonFile)
+
+    #Add the transactions to their relevant categories
+    for transaction in parsedTransactions:
+        #Find the original category of the transaction
+        unmappedCategory = transaction['category'][0]
+
+        #Map the raw category to the correct finished category
+        mappedCategory = categoryRelationships[unmappedCategory]
+
+        #Add the relevant amount
+        fullCategories[mappedCategory] += transaction['amount']
+
+    return fullCategories
 
 

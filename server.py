@@ -73,13 +73,13 @@ def analysis():
   #Return a dictionary of the format {category: sum of goods purchased}
   parsed_transactions = ut.parseTransactions(transactionHistory)
 
-  value = parsed_transactions
+  x = 10
 
 
 
 
   return render_template(
-    'analysis.html',
+    'analysis.html', data = parsed_transactions
   )
 
 

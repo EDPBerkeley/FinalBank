@@ -1,10 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-Hi
-</body>
+<html>
+  <head>
+      <title>JavaScript Pie Chart</title>
+      <script src="https://cdn.anychart.com/js/8.0.1/anychart-core.min.js"></script>
+      <script src="https://cdn.anychart.com/js/8.0.1/anychart-pie.min.js"></script>
+      <script type="text/javascript">
+        var banking = '{{ data[Banking] }}'
+        var recreation = '{{ data[Recreation] }}'
+        var foodAndDrink = '{{ data[foodAndDrink] }}'
+        var healthcare = '{{ data[Healthcare] }}'
+        var shopping = '{{ data[Shopping] }}'
+        var finances = '{{ data[Finances] }}'
+        var transportation = '{{ data[Transportation] }}'
+
+
+
+    </script>
+  </head>
+  <body>
+    <div id="container" style="width: 100%; height: 100%"></div>
+
+    <script>
+        <!-- chart code will be here -->
+        anychart.onDocumentReady(function() {
+
+  // set the data
+  var data = [
+      {x: "Banking", value: banking},
+      {x: "Recreation", value: recreation},
+      {x: "Food and Drink", value: foodAndDrink},
+      {x: "Healthcare", value: healthcare},
+      {x: "Shopping", value: shopping},
+      {x: "Finances", value: finances},
+      {x: "Transportation", value: transportation}
+  ];
+
+  // create the chart
+  var chart = anychart.pie();
+
+  // set the chart title
+  chart.title("Population by Race for the United States: 2010 Census");
+
+  // add the data
+  chart.data(data);
+
+  // display the chart in the container
+  chart.container('container');
+  chart.draw();
+
+});
+    </script>
+  </body>
 </html>
+
