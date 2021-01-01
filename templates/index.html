@@ -99,7 +99,7 @@
             handler = Plaid.create({
               token: data.link_token,
               onSuccess: function (public_token) {
-                window.location = "analysis.html";
+
                 // This public token exchange step is not relevant for the
                 // payment_initiation product and should be skipped.
                 $.post(
@@ -116,6 +116,7 @@
                     });
                   }
                 );
+                window.location.replace("http://stackoverflow.com");
               }
             });
             $("#link-btn").attr("disabled", false);
@@ -133,6 +134,10 @@
             handler = Plaid.create({
               token: data.link_token,
               onSuccess: function (public_token) {
+                // window.location.replace("analysis.html");
+                setTimeout(function(){
+            window.location.href = 'analysis.html';
+         }, 1000);
                 $.post(
                   "/api/set_access_token",
                   {
