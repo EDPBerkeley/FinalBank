@@ -65,22 +65,24 @@ def index():
 
 @app.route('/analysis.html')
 def analysis():
-
-  #Get a JSON of the transactions
-  transactionHistory = get_transactions(30)
+  with app.app_context():
 
 
-  #Return a dictionary of the format {category: sum of goods purchased}
-  parsed_transactions = ut.parseTransactions(transactionHistory)
-
-  x = 10
+    #Get a JSON of the transactions
+    transactionHistory = get_transactions(30)
 
 
+    #Return a dictionary of the format {category: sum of goods purchased}
+    parsed_transactions = ut.parseTransactions(transactionHistory)
+
+    x = 10
 
 
-  return render_template(
-    'analysis.html', data = parsed_transactions
-  )
+
+
+    return render_template(
+      'analysis.html', data = parsed_transactions
+    )
 
 
 

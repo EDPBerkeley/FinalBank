@@ -30,6 +30,8 @@ def parseTransactions(transactions):
         #Add the relevant amount
         fullCategories[mappedCategory] += transaction['amount']
 
+    print(fullCategories)
+
     return fullCategories
 
 
