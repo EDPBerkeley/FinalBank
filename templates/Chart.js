@@ -1,12 +1,13 @@
 let ctx = document.getElementById('myChart').getContext('2d');
-let labels = ['Pizza 🍕', 'Taco 🌮', 'Hot Dog 🌭', 'Sushi 🍣'];
-let colorHex = ['#FB3640', '#EFCA08', '#43AA8B', '#253D5B'];
+let labels = ['Banking', 'Finances', 'Recreation', 'Food and Drink', 'Shopping', 'Transportation', 'Healthcare'];
+let colorHex = ['#FB3640', '#EFCA08', '#43aa8b', '#253d5b','#9f2dbc', '#cd812b', '#000000' ];
+
 
 let myChart = new Chart(ctx, {
   type: 'pie',
   data: {
     datasets: [{
-      data: [30, 10, 40, 20],
+      data: [10, 10, 10, 10, 10, 10, 10],
       backgroundColor: colorHex
     }],
     labels: labels
@@ -24,7 +25,7 @@ let myChart = new Chart(ctx, {
         offset: -10,
         borderWidth: 2,
         borderColor: '#fff',
-        borderRadius: 25,
+        borderRadius: 200,
         backgroundColor: (context) => {
           return context.dataset.backgroundColor;
         },
@@ -39,3 +40,4 @@ let myChart = new Chart(ctx, {
     }
   }
 })
+// data: [banking, finances, recreation, foodAndDrink, shopping, transportation, healthcare]
