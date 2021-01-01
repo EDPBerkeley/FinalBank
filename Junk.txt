@@ -1,0 +1,12 @@
+      <script type="text/javascript">
+        var banking = '{{ data[Banking] }}'
+        var recreation = '{{ data[Recreation] }}'
+        var foodAndDrink = '{{ data[foodAndDrink] }}'
+        var healthcare = '{{ data[Healthcare] }}'
+        var shopping = '{{ data[Shopping] }}'
+        var finances = '{{ data[Finances] }}'
+        var transportation = '{{ data[Transportation] }}'
+
+
+
+    </script>
