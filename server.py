@@ -69,7 +69,7 @@ def analysis():
 
 
     #Get a JSON of the transactions
-    transactionHistory = get_transactions(30)
+    transactionHistory = get_transactions()
 
 
     #Return a dictionary of the format {category: sum of goods purchased}
@@ -247,10 +247,10 @@ def get_auth():
 # Retrieve Transactions for an Item
 # https://plaid.com/docs/#transactions
 @app.route('/api/transactions', methods=['GET'])
-def get_transactions(days):
+def get_transactions():
   # with app.app_context():
     # Pull transactions for the last 30 days
-    start_date = '{:%Y-%m-%d}'.format(datetime.datetime.now() + datetime.timedelta(-days))
+    start_date = '{:%Y-%m-%d}'.format(datetime.datetime.now() + datetime.timedelta(-30))
     end_date = '{:%Y-%m-%d}'.format(datetime.datetime.now())
     try:
       transactions_response = client.Transactions.get(access_token, start_date, end_date)
