@@ -16,12 +16,13 @@ body {
 }
 
 .Box {
+  display: inline-block;
   margin: 50px;
-  background: #73ad21;
+  background: #e7980d;
   padding: 20px;
-  width: 10px;
-  height: 50px;
-  border: 10px salmon;
+  width: 1000px;
+  height: 1000px;
+  border-radius: 30px;
 }
 
 /*
