@@ -27,14 +27,14 @@ let myChart = new Chart(ctx, {
         color: '#fff',
         anchor: 'end',
         align: 'start',
-        offset: 35,
+        offset: 10,
         borderWidth: 0,
-        borderColor: '#fff',
+        // borderColor: '#fff',
         borderRadius: 0,
         
         font: {
-          size: '15',
-          color: '#00000'
+          size: '10',
+          color: '#fff'
         },
         formatter: (value) => {
           return value + ' %';
