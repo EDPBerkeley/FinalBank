@@ -15,6 +15,10 @@ body {
   padding: 80px 40px;
 }
 
+.Box-Header {
+  
+}
+
 .Box {
   display: inline-block;
   margin: 50px;

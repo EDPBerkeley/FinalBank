@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Alegreya&family=Alegreya+Sans&family=Alegreya+Sans+SC&family=Lato&family=Open+Sans&family=Roboto&display=swap');
+* {
+
+    background-color: brown;
+    box-sizing: border-box;
+    font-family: Roboto;
+    color: rgb(245, 244, 244);
+}
+
+.side-nav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: rgb(46, 23, 23); /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+  }
+
+.Box-Header {
+    font-size: medium;
+    font-family: Alegreya Sans SC;
+    color: rgb(156, 126, 126);
+    margin-bottom: 50px;
+    
+    
+}
+
+.Translucent-Box {
+    display: inline-block;
+    margin: 50px;
+    background: #092768;
+    padding: 20px;
+    width: 500px;
+    height: 500px;
+    border-radius: 30px;
+  }
