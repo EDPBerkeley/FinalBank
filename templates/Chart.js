@@ -1,37 +1,40 @@
 let ctx = document.getElementById('myChart').getContext('2d');
-let labels = ['Banking', 'Finances', 'Recreation', 'Food and Drink', 'Shopping', 'Transportation', 'Healthcare'];
-let colorHex = ['#FB3640', '#EFCA08', '#43aa8b', '#253d5b','#9f2dbc', '#cd812b', '#000000' ];
-
+let labels = ['Banking', 'Finances', 'Shopping', 'Recreation', 'Healthcare', 'Transportation', 'Food and Drink'];
+let colorHex = ['#FB3640', '#86A9C5', '#286CA1', '#77FAC', '#1C203D', '#798E9C', '#2A303D'];
 
 let myChart = new Chart(ctx, {
+  
   type: 'pie',
   data: {
     datasets: [{
       data: [10, 10, 10, 10, 10, 10, 10],
-      backgroundColor: colorHex
+      backgroundColor: colorHex,
+      borderWidth: [0,0,0,0,0,0,0]
     }],
-    labels: labels
+    labels: labels,
+  
   },
   options: {
-    responsive: true,
+    responsive: false,
     legend: {
       position: 'bottom'
     },
+    
+    
     plugins: {
+      
       datalabels: {
         color: '#fff',
         anchor: 'end',
         align: 'start',
-        offset: -10,
-        borderWidth: 2,
+        offset: 35,
+        borderWidth: 0,
         borderColor: '#fff',
-        borderRadius: 200,
-        backgroundColor: (context) => {
-          return context.dataset.backgroundColor;
-        },
+        borderRadius: 0,
+        
         font: {
-          weight: 'bold',
-          size: '10'
+          size: '15',
+          color: '#00000'
         },
         formatter: (value) => {
           return value + ' %';
@@ -40,4 +43,3 @@ let myChart = new Chart(ctx, {
     }
   }
 })
-// data: [banking, finances, recreation, foodAndDrink, shopping, transportation, healthcare]

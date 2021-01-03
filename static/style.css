@@ -18,10 +18,10 @@ body {
 .Box {
   display: inline-block;
   margin: 50px;
-  background: #e7980d;
+  background: #a5adad;
   padding: 20px;
   width: 1000px;
-  height: 1000px;
+  height: 500px;
   border-radius: 30px;
 }
 
