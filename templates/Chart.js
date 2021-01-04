@@ -17,7 +17,10 @@ let myChart = new Chart(ctx1, {
   options: {
     responsive: false,
     legend: {
-      position: 'bottom'
+      position: 'bottom',
+      labels: {
+        fontColor: 'white'
+      }
     },
     
     
@@ -46,7 +49,7 @@ let myChart = new Chart(ctx1, {
 
 
 let ctx2 = document.getElementById('myChart2').getContext('2d');
-let labels2 = ['June', 'July', 'August', 'September', 'October', 'November', 'December'];
+let labels2 = ['Banking', 'Finances', 'Shopping', 'Recreation', 'Healthcare', 'Transportation', 'Food and Drink'];
 let colorHex2 = ['#FB3640', '#86A9C5', '#286CA1', '#77FAC', '#1C203D', '#798E9C', '#2A303D'];
 let myChart2 = new Chart(ctx2, {
   
@@ -63,7 +66,10 @@ let myChart2 = new Chart(ctx2, {
   options: {
     responsive: false,
     legend: {
-      position: 'bottom'
+      position: 'bottom',
+      labels: {
+        fontColor: 'white'
+      }
     },
     ticks: {
       autoSkip: false
@@ -140,11 +146,11 @@ let myChart2 = new Chart(ctx2, {
 
 
 let ctx4 = document.getElementById('myChart4').getContext('2d');
-let labels4 = ['Banking', 'Finances', 'Shopping', 'Recreation', 'Healthcare', 'Transportation', 'Food and Drink'];
+let labels4 = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
 let colorHex4 = ['#FB3640', '#86A9C5', '#286CA1', '#77FAC', '#1C203D', '#798E9C', '#2A303D'];
 let myChart4 = new Chart(ctx4, {
   
-  type: 'pie',
+  type: 'line',
   data: {
     datasets: [{
       data: [10, 10, 10, 10, 10, 10, 10],
