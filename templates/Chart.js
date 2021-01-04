@@ -146,95 +146,125 @@ let myChart2 = new Chart(ctx2, {
 
 
 let ctx4 = document.getElementById('myChart4').getContext('2d');
-let labels4 = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
 let colorHex4 = ['#FB3640', '#86A9C5', '#286CA1', '#77FAC', '#1C203D', '#798E9C', '#2A303D'];
 let myChart4 = new Chart(ctx4, {
-  
   type: 'line',
   data: {
-    datasets: [{
-      data: [10, 10, 10, 10, 10, 10, 10],
-      backgroundColor: colorHex,
-      borderWidth: [0,0,0,0,0,0,0]
-    }],
-    labels: labels4,
-  
+    labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31']
+    ,
+    datasets: [{ 
+        data: [74, 12, 63, 49, 91, 85, 56, 15, 17, 9, 47, 57, 97, 81, 64, 73, 89, 22, 19, 70, 22, 97, 66, 81, 59, 29, 74, 46, 34, 49, 39],
+        borderColor: "#E61616",
+        
+        fill: true,
+      }
+    ]
   },
   options: {
-    responsive: false,
+    scaleFontColor: "white",
     legend: {
-      position: 'bottom'
+      display: false,
     },
-    
-    
-    plugins: {
-      
-      datalabels: {
-        color: '#fff',
-        anchor: 'end',
-        align: 'start',
-        offset: 10,
-        borderWidth: 0,
-        // borderColor: '#fff',
-        borderRadius: 0,
-        
-        font: {
-          size: '10',
-          color: '#fff'
+    title: {
+      display: true,
+      text: ''
+    },   
+    scales: {
+      xAxes: [{
+        gridLines: {
+          display: false ,
+          color: "#FFFFFF"
         },
-        formatter: (value) => {
-          return value + ' %';
-        }
-      }
+         ticks: {
+            fontColor: "white",
+         }
+      }],
+      yAxes: [{
+        gridLines: {
+          display: false ,
+          color: "#FFFFFF"
+        },
+         ticks: {
+            fontColor: "white",
+         }
+      }]
+   },
+   plugins: {
+      
+    datalabels: {
+      color: '#fff',
+      anchor: 'end',
+      align: 'start',
+      offset: 10,
+      borderWidth: 0,
+      // borderColor: '#fff',
+      borderRadius: 0,
+      
     }
   }
-})
+  }
+});
 
 
 let ctx5 = document.getElementById('myChart5').getContext('2d');
-let labels5 = ['Banking', 'Finances', 'Shopping', 'Recreation', 'Healthcare', 'Transportation', 'Food and Drink'];
-let colorHex5 = ['#FB3640', '#86A9C5', '#286CA1', '#77FAC', '#1C203D', '#798E9C', '#2A303D'];
 let myChart5 = new Chart(ctx5, {
-  
-  type: 'pie',
+  type: 'line',
   data: {
-    datasets: [{
-      data: [10, 10, 10, 10, 10, 10, 10],
-      backgroundColor: colorHex,
-      borderWidth: [0,0,0,0,0,0,0]
-    }],
-    labels: labels5,
-  
+    labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31']
+    ,
+    datasets: [{ 
+        data: [74, 12, 63, 49, 91, 85, 56, 15, 17, 9, 47, 57, 97, 81, 64, 73, 89, 22, 19, 70, 22, 97, 66, 81, 59, 29, 74, 46, 34, 49, 39],
+        borderColor: "#E61616",
+        
+        fill: true,
+      }
+    ]
   },
   options: {
-    responsive: false,
+    scaleFontColor: "white",
     legend: {
-      position: 'bottom'
+      display: false,
     },
-    
-    
-    plugins: {
-      
-      datalabels: {
-        color: '#fff',
-        anchor: 'end',
-        align: 'start',
-        offset: 10,
-        borderWidth: 0,
-        // borderColor: '#fff',
-        borderRadius: 0,
-        
-        font: {
-          size: '10',
-          color: '#fff'
+    title: {
+      display: true,
+      text: ''
+    },   
+    scales: {
+      xAxes: [{
+        gridLines: {
+          display: false ,
+          color: "#FFFFFF"
         },
-        formatter: (value) => {
-          return value + ' %';
-        }
-      }
+         ticks: {
+            fontColor: "white",
+         }
+      }],
+      yAxes: [{
+        gridLines: {
+          display: false ,
+          color: "#FFFFFF"
+        },
+         ticks: {
+            fontColor: "white",
+         }
+      }]
+   },
+   plugins: {
+      
+    datalabels: {
+      color: '#fff',
+      anchor: 'end',
+      align: 'start',
+      offset: 10,
+      borderWidth: 0,
+      // borderColor: '#fff',
+      borderRadius: 0,
+      
     }
   }
-})
+  }
+});
+
 
 
 let ctx6 = document.getElementById('myChart6').getContext('2d');

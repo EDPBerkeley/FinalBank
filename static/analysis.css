@@ -96,6 +96,21 @@ body {
   
 }
 
+/* First 3 Frosted Glass Panes */
+
+.Middle-Box {
+  height: 400px;
+  width: calc(100% - 150px);
+  margin-left: 150px;
+  margin-top: 0px;
+  display: flex;
+  justify-content: space-evenly;
+  background: inherit;
+
+  
+}
+
+
 /* Bottom 3 Frosted Glass Pane */
 
 .Bottom-Box {
@@ -128,7 +143,26 @@ body {
   z-index: 1;
   background: inherit;
   overflow: hidden;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-color: transparent blue;
 }
+.Translucent-Box:hover {
+  overflow-y: scroll;
+  
+}
+::-webkit-scrollbar {
+  width: 6px; height: 4px; 
+  background: transparent; 
+}
+::-webkit-scrollbar-thumb { 
+  background-color: rgba(16, 200, 233, 0.781); 
+  -webkit-border-radius: 1ex; 
+}
+/* .Translucent-Box::-webkit-scrollbar { /* WebKit */
+  /* width: 0;
+  height: 0;
+} */ */
 
 .Translucent-Box:before {
   content: "";
@@ -144,6 +178,42 @@ body {
   margin: -20px;
 }
 
+
+/* Frosted Glass Rounded Pane */
+
+.Translucent-Box-Wide {
+  display: inline-block;
+  margin-top: 50px;
+  margin-left: 0px;
+  margin-right: 0px;
+  padding: 20px;
+  height: 350px;
+  width: 700px;
+  border-radius: 40px;
+  padding: 10px;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2); 
+  position: relative;
+  z-index: 1;
+  background: inherit;
+  overflow: hidden;
+}
+
+.Translucent-Box-Wide:before {
+  content: "";
+  position: absolute;
+  background: inherit;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.2);
+  filter: blur(10px);
+  margin: -20px;
+}
+
+
+
 /* Header in each box */
 
 
@@ -156,6 +226,7 @@ body {
   margin-bottom: 20px;
   margin-top: 20px;
   text-align: center;
+  
     
 }
 
@@ -182,6 +253,7 @@ body {
 
 .PanelThree ul {
   padding: 0px;
+  
 }
 
 #myChart4 {
