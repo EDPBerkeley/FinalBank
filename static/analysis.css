@@ -26,17 +26,29 @@ body {
 
 .sidenav {
   height: 100%;
-  width: 150px;
+  width: 200px;
   position: fixed;
   z-index: 1;
   top: 0;
   bottom: 10;
   left: 0;
-  background-color:rgba(5, 5, 26, 0.336);
+  background: inherit;
   overflow-x: hidden;
   padding-top: 20px;
   box-shadow: inset 0 0 2000px rgba(0, 225, 255, 0.2);
-  filter: blur(0px);
+}
+
+.sidenav::before {
+  content: "";
+  position: absolute;
+  background: inherit;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.2);
+  filter: blur(10px);
   
 
 }
@@ -49,11 +61,28 @@ body {
   display: block;
 }
 
-.sidenav a:hover {
-  color: #f1f1f1;
+.sidenav .User {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 50px;
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  font-family: 'Alegreya Sans SC';
+  color: #ffffff;
+  display: block;
 }
 
+.sidenav a:hover {
+  color: #000000;
+  background-color: rgba(0, 0, 0, 0.2);
+}
 
+.Legend {
+  padding: 10px;
+  margin-bottom: 0px;
+  height: 100px;
+}
 
 .Translucent-Box {
   display: inline-block;
@@ -98,6 +127,18 @@ body {
   
 }
 
+.Bottom-Box {
+  height: 400px;
+  width: calc(100% - 150px);
+  margin-left: 150px;
+  margin-top: 0px;
+  display: flex;
+  justify-content: space-evenly;
+  background: inherit;
+
+  
+}
+
 .Box-Header {
   font-family: 'Alegreya Sans SC';
   color: white;
@@ -115,11 +156,38 @@ body {
   height: 60px;
 }
 
-#stackoverflow {
+#myChart2 {
   margin: auto;
   width: 50px;
   height: 60px;
 }
+
+#myChart3 {
+  margin: auto;
+  width: 50px;
+  height: 60px;
+}
+
+#myChart4 {
+  margin: auto;
+  width: 50px;
+  height: 60px;
+}
+
+#myChart5 {
+  margin: auto;
+  width: 50px;
+  height: 60px;
+}
+
+
+#myChart6 {
+  margin: auto;
+  width: 50px;
+  height: 60px;
+}
+
+
 
 hr {
   border: 2.5px solid rgb(106, 139, 161);

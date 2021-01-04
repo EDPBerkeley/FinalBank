@@ -1,8 +1,7 @@
-let ctx = document.getElementById('myChart2').getContext('2d');
-let labels = ['Banking', 'Finances', 'Shopping', 'Recreation', 'Healthcare', 'Transportation', 'Food and Drink'];
-let colorHex = ['#FB3640', '#86A9C5', '#286CA1', '#77FAC', '#1C203D', '#798E9C', '#2A303D'];
-
-let myChart2 = new Chart(ctx, {
+let ctx2 = document.getElementById('myChart2').getContext('2d');
+let labels2 = ['Banking', 'Finances', 'Shopping', 'Recreation', 'Healthcare', 'Transportation', 'Food and Drink'];
+let colorHex2 = ['#FB3640', '#86A9C5', '#286CA1', '#77FAC', '#1C203D', '#798E9C', '#2A303D'];
+let myChart2 = new Chart(ctx2, {
   
   type: 'pie',
   data: {
