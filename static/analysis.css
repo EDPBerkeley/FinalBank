@@ -3,13 +3,23 @@
     box-sizing: border-box;
 }
 
+
+.Header {
+  background-image: url("Images/HighResBlueTiles.png");
+  padding-bottom: 30px;
+  background-size: contain;
+  height: 100px;
+  margin-top: 0px;
+}
+
 body {
   background-image: url("Images/HighResBlueTiles.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed; 
   min-height: 100vh;
-  display: grid;
+  margin: 0px;
+  
 }
 
 
@@ -105,8 +115,16 @@ body {
   height: 60px;
 }
 
-#myChart2 {
+#stackoverflow {
   margin: auto;
   width: 50px;
   height: 60px;
+}
+
+hr {
+  border: 2.5px solid rgb(106, 139, 161);
+  margin-left: 175px;
+  margin-top: 50px;
+  width: calc(100% - 200px);
+  border-radius: 0px;
 }
