@@ -46,14 +46,14 @@ let myChart = new Chart(ctx1, {
 
 
 let ctx2 = document.getElementById('myChart2').getContext('2d');
-let labels2 = ['Banking', 'Finances', 'Shopping', 'Recreation', 'Healthcare', 'Transportation', 'Food and Drink'];
+let labels2 = ['June', 'July', 'August', 'September', 'October', 'November', 'December'];
 let colorHex2 = ['#FB3640', '#86A9C5', '#286CA1', '#77FAC', '#1C203D', '#798E9C', '#2A303D'];
 let myChart2 = new Chart(ctx2, {
   
-  type: 'pie',
+  type: 'bar',
   data: {
     datasets: [{
-      data: [10, 10, 10, 10, 10, 10, 10],
+      data: [15, 20, 17, 4, 8, 9, 20],
       backgroundColor: colorHex,
       borderWidth: [0,0,0,0,0,0,0]
     }],
@@ -64,6 +64,9 @@ let myChart2 = new Chart(ctx2, {
     responsive: false,
     legend: {
       position: 'bottom'
+    },
+    ticks: {
+      autoSkip: false
     },
     
     
