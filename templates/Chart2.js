@@ -2,7 +2,7 @@ let ctx = document.getElementById('myChart2').getContext('2d');
 let labels = ['Banking', 'Finances', 'Shopping', 'Recreation', 'Healthcare', 'Transportation', 'Food and Drink'];
 let colorHex = ['#FB3640', '#86A9C5', '#286CA1', '#77FAC', '#1C203D', '#798E9C', '#2A303D'];
 
-let myChart = new Chart(ctx, {
+let myChart2 = new Chart(ctx, {
   
   type: 'pie',
   data: {
