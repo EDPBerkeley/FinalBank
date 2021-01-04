@@ -4,26 +4,31 @@
 }
 
 body {
-  background-image: url("Images/Background2.png");
+  background-image: url("Images/HighResBlueTiles.png");
   background-size: cover;
   background-repeat: no-repeat;
+  background-attachment: fixed; 
   min-height: 100vh;
+  display: grid;
 }
 
 
 
 .sidenav {
-  height: 90%;
-  width: 160px;
+  height: 100%;
+  width: 150px;
   position: fixed;
   z-index: 1;
-  top: 100000;
-  bottom: 2.5;
+  top: 10;
+  bottom: 10;
   left: 0;
-  background-color: #040733;
+  background-color:rgba(5, 5, 26, 0.336);
   overflow-x: hidden;
   padding-top: 20px;
   border-radius: 10px;
+  box-shadow: inset 0 0 2000px rgba(0, 225, 255, 0.2);
+  filter: blur(0px);
+  
 
 }
 .sidenav a {
@@ -40,29 +45,64 @@ body {
 }
 
 
+
+.Translucent-Box {
+  display: inline-block;
+  margin-top: 50px;
+  margin-left: 0px;
+  margin-right: 0px;
+  padding: 20px;
+  height: 350px;
+  width: 350px;
+  border-radius: 50px;
+  padding: 10px;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2); 
+  position: relative;
+  z-index: 1;
+  background: inherit;
+  overflow: hidden;
+}
+
+.Translucent-Box:before {
+  content: "";
+  position: absolute;
+  background: inherit;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.5);
+  filter: blur(10px);
+  margin: -20px;
+}
+
+.Top-Box {
+  height: 400px;
+  width: calc(100% - 150px);
+  margin-left: 150px;
+  margin-top: 0px;
+  display: flex;
+  justify-content: space-evenly;
+
+  
+}
+
 .Box-Header {
-    font-family: 'Alegreya Sans SC';
-    color: white;
-    font-size: 1em;
-    background:  #040733;
-    margin-bottom: 20px;
-    margin-top: 10px;
+  font-family: 'Alegreya Sans SC';
+  color: white;
+  font-size: 1em;
+  background:  inherit;
+  margin-left: 30px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+    
 }
 
 #myChart {
   margin: auto;
-  background: #040733;
+  background: inherit;
   width: 50px;
   height: 60px;
 }
-
-.Translucent-Box {
-    display: inline-block;
-    margin: 50px;
-    background:#040733;
-    margin-left: 200px;
-    padding: 20px;
-    width: 400px;
-    height: 350px;
-    border-radius: 50px;
-  }
