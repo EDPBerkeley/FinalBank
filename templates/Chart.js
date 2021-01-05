@@ -267,47 +267,47 @@ let myChart5 = new Chart(ctx5, {
 
 
 
-let ctx6 = document.getElementById('myChart6').getContext('2d');
-let labels6 = ['Banking', 'Finances', 'Shopping', 'Recreation', 'Healthcare', 'Transportation', 'Food and Drink'];
-let colorHex6 = ['#FB3640', '#86A9C5', '#286CA1', '#77FAC', '#1C203D', '#798E9C', '#2A303D'];
-let myChart6 = new Chart(ctx6, {
+// let ctx6 = document.getElementById('myChart6').getContext('2d');
+// let labels6 = ['Banking', 'Finances', 'Shopping', 'Recreation', 'Healthcare', 'Transportation', 'Food and Drink'];
+// let colorHex6 = ['#FB3640', '#86A9C5', '#286CA1', '#77FAC', '#1C203D', '#798E9C', '#2A303D'];
+// let myChart6 = new Chart(ctx6, {
   
-  type: 'pie',
-  data: {
-    datasets: [{
-      data: [10, 10, 10, 10, 10, 10, 10],
-      backgroundColor: colorHex,
-      borderWidth: [0,0,0,0,0,0,0]
-    }],
-    labels: labels6,
+//   type: 'pie',
+//   data: {
+//     datasets: [{
+//       data: [10, 10, 10, 10, 10, 10, 10],
+//       backgroundColor: colorHex,
+//       borderWidth: [0,0,0,0,0,0,0]
+//     }],
+//     labels: labels6,
   
-  },
-  options: {
-    responsive: false,
-    legend: {
-      position: 'bottom'
-    },
+//   },
+//   options: {
+//     responsive: false,
+//     legend: {
+//       position: 'bottom'
+//     },
     
     
-    plugins: {
+//     plugins: {
       
-      datalabels: {
-        color: '#fff',
-        anchor: 'end',
-        align: 'start',
-        offset: 10,
-        borderWidth: 0,
-        // borderColor: '#fff',
-        borderRadius: 0,
+//       datalabels: {
+//         color: '#fff',
+//         anchor: 'end',
+//         align: 'start',
+//         offset: 10,
+//         borderWidth: 0,
+//         // borderColor: '#fff',
+//         borderRadius: 0,
         
-        font: {
-          size: '10',
-          color: '#fff'
-        },
-        formatter: (value) => {
-          return value + ' %';
-        }
-      }
-    }
-  }
-})
+//         font: {
+//           size: '10',
+//           color: '#fff'
+//         },
+//         formatter: (value) => {
+//           return value + ' %';
+//         }
+//       }
+//     }
+//   }
+// })

@@ -23,6 +23,17 @@ body {
   font-family: 'Alegreya Sans SC';
   overflow: hidden;
   
+  box-sizing: border-box;
+  
+}
+.everything {
+  background: inherit;
+  height: 100%;
+  width: 100%;
+  align-content: center;
+  margin-left: 200px;
+  
+  
 }
 
  /* Side Navigation Menu */
@@ -88,12 +99,13 @@ body {
 
 .Top-Box {
   height: 400px;
-  width: calc(100% - 150px);
-  margin-left: 150px;
-  margin-top: 0px;
+  width: calc(100% - 200px);
+  margin-top: 1%;
+  margin-bottom: 1%;
   display: flex;
   justify-content: space-evenly;
   background: inherit;
+  padding: 0px;
 
   
 }
@@ -102,7 +114,7 @@ body {
 
 .Middle-Box {
   height: 400px;
-  width: calc(100% - 150px);
+  width: 100%;
   margin-left: 150px;
   margin-top: 50px;
   margin-bottom: 100px;
@@ -118,12 +130,12 @@ body {
 
 .Bottom-Box {
   height: 400px;
-  width: calc(100% - 150px);
-  margin-left: 150px;
+  width: calc(100% - 200px);
   margin-top: 50px;
   display: flex;
   justify-content: space-evenly;
   background: inherit;
+  padding: 0px;
 
   
 }
@@ -133,14 +145,12 @@ body {
 
 .Translucent-Box {
   display: inline-block;
-  margin-top: 50px;
   margin-left: 0px;
   margin-right: 0px;
-  padding: 20px;
-  height: 450px;
-  width: 450px;
+  width: 27.5%;
+  height: 100%;
   border-radius: 40px;
-  padding: 10px;
+  /* padding: 10px; */
   box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2); 
   position: relative;
   z-index: 1;
