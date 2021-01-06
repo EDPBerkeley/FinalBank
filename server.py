@@ -66,6 +66,7 @@ def index():
 
 
 #Code for 1st chart
+#Get the categorical spending of the last 30 Days
 def ch1(transactionHistory):
 
 
@@ -74,11 +75,28 @@ def ch1(transactionHistory):
   return parsed_transactions
 
 #Code for 2nd chart
+#Get the categorical spending of the last 12 months
 def ch2(transactionHistory):
 
   # Return a dictionary of the format {category: sum of goods purchased}
   parsed_transactions = ut.parseTransactions(transactionHistory)
   return parsed_transactions
+
+#Code for the 3rd chart
+#Get the 5 Biggest Purchases of the last 12 months
+def ch3(transactionHistory):
+  return transactionHistory
+
+
+#Code for the 4th chart
+#Get the total spending of the last 30 days
+def ch4(transactionHistory):
+  return transactionHistory
+
+#Code for the 5th chart
+#Get the total spending of the last 12 months
+def ch5(transactionHistory):
+  return transactionHistory
 
 
 @app.route('/analysis.html')
@@ -89,12 +107,14 @@ def analysis():
   #Get the transactions for the last 30 Days
   transactionHistory30Days = ut.getPast30Days(transactionHistoryFullYear)
 
-  #Write the transactionHistory to the textFile
-  with open('Data/transactions.txt', 'w') as outfile:
-    json.dump(transactionHistoryFullYear.json['transactions'], outfile)
+
+
 
   #Get the data for the first chart
   chart1 = ch1(transactionHistoryFullYear)
+
+  #Get the data for the second chart
+  chart2 =
 
 
   return render_template(
