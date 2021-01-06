@@ -1,7 +1,10 @@
 let ctx1 = document.getElementById("myChart").getContext('2d');
 let labels = ['Banking', 'Finances', 'Shopping', 'Recreation', 'Healthcare', 'Transportation', 'Food and Drink'];
 let colorHex = ['#FB3640', '#86A9C5', '#286CA1', '#77FAC', '#1C203D', '#798E9C', '#2A303D'];
-let data1 = [chart1['Banking'],10,10,10,10,10];
+var chart1Data = JSON.parse(chart1)
+let data1 = [chart1Data["Banking"],chart1Data["Finances"], chart1Data["Shopping"],
+  chart1Data["Recreation"], chart1Data["Food and Drink"], chart1Data["Transportation"]];
+console.log(chart1Data["Banking"])
 
 let myChart = new Chart(ctx1, {
   
