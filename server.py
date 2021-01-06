@@ -98,6 +98,11 @@ def ch4(transactionHistory):
 def ch5(transactionHistory):
   return transactionHistory
 
+#Code for the 6th chart
+#Output a list of strings representing transactions of the last 30 days
+def ch6(transactionHistory):
+  return transactionHistory
+
 
 @app.route('/analysis.html')
 def analysis():
@@ -107,19 +112,33 @@ def analysis():
   #Get the transactions for the last 30 Days
   transactionHistory30Days = ut.getPast30Days(transactionHistoryFullYear)
 
-
-
-
   #Get the data for the first chart
-  chart1 = ch1(transactionHistoryFullYear)
+  chart1 = ch1(transactionHistory30Days)
 
   #Get the data for the second chart
-  chart2 =
+  chart2 = ch2(transactionHistoryFullYear)
+
+  #Get the data for the third chart
+  chart3 = ch3(transactionHistoryFullYear)
+
+  #Get the data for the fourth chart
+  chart4 = ch4(transactionHistory30Days)
+
+  #Get the data for the fifth chart
+  chart5 = ch5(transactionHistoryFullYear)
+
+  #Get the data for the sixth chart
+  chart6 = ch6(transactionHistory30Days)
 
 
   return render_template(
     'analysis.html',
-    chart1 = chart1
+    chart1 = chart1,
+    chart2 = chart2,
+    chart3 = chart3,
+    chart4 = chart4,
+    chart5 = chart5,
+    chart6 = chart6
   )
 
 
