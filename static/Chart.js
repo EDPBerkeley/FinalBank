@@ -1,7 +1,7 @@
 let ctx1 = document.getElementById("myChart").getContext('2d');
 let labels = ['Banking', 'Finances', 'Shopping', 'Recreation', 'Healthcare', 'Transportation', 'Food and Drink'];
 let colorHex = ['#FB3640', '#86A9C5', '#286CA1', '#77FAC', '#1C203D', '#798E9C', '#2A303D'];
-let data = [];
+let data1 = [chart1['Banking'],10,10,10,10,10];
 
 let myChart = new Chart(ctx1, {
   

@@ -83,12 +83,7 @@ def analysis():
     return render_template(
       'analysis.html',
       banking = parsed_transactions['Banking'],
-      recreation = parsed_transactions['Recreation'],
-      foodAndDrink = parsed_transactions['Food and Drink'],
-      healthcare = parsed_transactions['Healthcare'],
-      shopping = parsed_transactions['Shopping'],
-      finances = parsed_transactions['Finances'],
-      transportation = parsed_transactions['Transportation']
+      recreation =
     )
 
 
