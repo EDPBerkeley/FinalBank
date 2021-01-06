@@ -9,9 +9,7 @@ class jsn:
     def __init__(self, jsn):
         self.__dict__ = j.load(jsn)
 
-def parseTransactions(transactions):
-    #assign a variable to represent the transactions
-    parsedTransactions = transactions.json['transactions']
+def parseTransactions(parsedTransactions):
 
     #Open the empty categories json file
     with open("Data/emptyCategories.json") as jsonFile:
@@ -37,11 +35,6 @@ def parseTransactions(transactions):
 
     return fullCategories
 
-#Extract past 30 days of transactions from 365 days
-def getPast30Days(transactionHistory):
-
-    #Get the
-    datetime.datetime.now() - datetime.timedelta(days=30)
-
-    #Loop through the transactions until
-    return transactionHistory
+#Key used to sort the transactions of the past 30 days
+def amount(transaction):
+    return transaction['amount'];

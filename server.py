@@ -85,10 +85,21 @@ def ch2(transactionHistory):
 #Code for the 3rd chart
 #Get the 5 Biggest Purchases of the last 12 months
 def ch3(transactionHistory):
+
+  transactionHistoryCopy = transactionHistory
   top5 = []
 
-  #Add the first 5 transactio
+  #Add the first 5 transaction and remove them from the the copy of transactions
   for i in range(0,5):
+    top5.append(transactionHistory[i]['amount'])
+    transactionHistoryCopy.pop(i)
+
+  #Sort the transactions
+  top5.sort(key=ut.amount)
+
+  #Test if each element is less than the
+  for transaction in transactionHistoryCopy:
+    if ()
 
   return transactionHistory
 
@@ -112,10 +123,10 @@ def ch6(transactionHistory):
 @app.route('/analysis.html')
 def analysis():
   #Fetch the transactions for 365 days
-  transactionHistoryFullYear = get_transactions(365)
+  transactionHistoryFullYear = get_transactions(365).json['transactions']
 
   #Get the transactions for the last 30 Days
-  transactionHistory30Days = get_transactions(30)
+  transactionHistory30Days = get_transactions(30).json['transactions']
 
   #Get the data for the first chart
   chart1 = ch1(transactionHistory30Days)
