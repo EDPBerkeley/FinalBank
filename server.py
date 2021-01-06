@@ -76,9 +76,6 @@ def analysis():
     parsed_transactions = ut.parseTransactions(transactionHistory)
 
 
-
-
-
     return render_template(
       'analysis.html',
       chart1 = parsed_transactions
