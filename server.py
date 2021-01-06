@@ -63,23 +63,44 @@ def index():
     'index.html',
   )
 
+
+
+#Code for 1st chart
+def ch1(transactionHistory):
+
+
+  # Return a dictionary of the format {category: sum of goods purchased}
+  parsed_transactions = ut.parseTransactions(transactionHistory)
+  return parsed_transactions
+
+#Code for 2nd chart
+def ch2(transactionHistory):
+
+  # Return a dictionary of the format {category: sum of goods purchased}
+  parsed_transactions = ut.parseTransactions(transactionHistory)
+  return parsed_transactions
+
+
 @app.route('/analysis.html')
 def analysis():
-  # with app.app_context():
+  #Fetch the transactions for 365 days
+  transactionHistoryFullYear = get_transactions(365)
+
+  #Get the transactions for the last 30 Days
+  transactionHistory30Days = ut.getPast30Days(transactionHistoryFullYear)
+
+  #Write the transactionHistory to the textFile
+  with open('Data/transactions.txt', 'w') as outfile:
+    json.dump(transactionHistoryFullYear.json['transactions'], outfile)
+
+  #Get the data for the first chart
+  chart1 = ch1(transactionHistoryFullYear)
 
 
-    #Get a JSON of the transactions
-    transactionHistory = get_transactions()
-
-
-    #Return a dictionary of the format {category: sum of goods purchased}
-    parsed_transactions = ut.parseTransactions(transactionHistory)
-
-
-    return render_template(
-      'analysis.html',
-      chart1 = parsed_transactions
-    )
+  return render_template(
+    'analysis.html',
+    chart1 = chart1
+  )
 
 
 
@@ -237,10 +258,10 @@ def get_auth():
 # Retrieve Transactions for an Item
 # https://plaid.com/docs/#transactions
 @app.route('/api/transactions', methods=['GET'])
-def get_transactions():
+def get_transactions(days):
   # with app.app_context():
     # Pull transactions for the last 30 days
-    start_date = '{:%Y-%m-%d}'.format(datetime.datetime.now() + datetime.timedelta(-30))
+    start_date = '{:%Y-%m-%d}'.format(datetime.datetime.now() + datetime.timedelta(-days))
     end_date = '{:%Y-%m-%d}'.format(datetime.datetime.now())
     try:
       transactions_response = client.Transactions.get(access_token, start_date, end_date)

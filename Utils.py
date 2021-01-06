@@ -34,4 +34,6 @@ def parseTransactions(transactions):
 
     return fullCategories
 
-
+#Extract past 30 days of transactions from 365 days
+def getPast30Days(transactionHistory):
+    return transactionHistory
