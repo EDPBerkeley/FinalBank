@@ -2,6 +2,9 @@ import json as j
 
 
 #A jsn class used to parse the JSON object
+from datetime import datetime
+
+
 class jsn:
     def __init__(self, jsn):
         self.__dict__ = j.load(jsn)
@@ -36,4 +39,9 @@ def parseTransactions(transactions):
 
 #Extract past 30 days of transactions from 365 days
 def getPast30Days(transactionHistory):
+
+    #Get the
+    datetime.datetime.now() - datetime.timedelta(days=30)
+
+    #Loop through the transactions until
     return transactionHistory
