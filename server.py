@@ -97,17 +97,31 @@ def ch3(transactionHistory):
   #Sort the transactions
   top5.sort(key=ut.amount)
 
-  #Test if each element is less than the
+  #Test if each element is less than the 1st
+  #If the element is less than the first append it and sort the list
   for transaction in transactionHistoryCopy:
-    if ()
+    if (transaction['amount'] > top5[0]['amount']):
+      top5.pop(0)
+      top5.append(transaction)
+      top5.sort(key = ut.amount)
 
-  return transactionHistory
-
+  return top5
 
 #Code for the 4th chart
 #Get the total spending of the last 30 days
 def ch4(transactionHistory):
-  return transactionHistory
+  #Create a new array that represents the totals of the last 30 days
+  totals = []
+  for i in range (0, 30):
+    totals.append(0)
+
+  #Loop through the transactions and add the amounts to the totals
+  index = 30
+  for transaction in transactionHistory:
+    totals[index] = transaction['amount']
+    index -= 1
+
+  return totals
 
 #Code for the 5th chart
 #Get the total spending of the last 12 months
