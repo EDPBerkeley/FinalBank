@@ -171,6 +171,13 @@ def ch5():
 #Code for the 6th chart
 #Output a list of strings representing transactions of the last 30 days
 def ch6(transactionHistory):
+  transactions = {}
+
+  #Loop through the transactions and add them to the dictionary
+  i = 0
+  for transaction in transactionHistory:
+    transaction[i] = transaction["merchant_name"] + ":" + transaction['amount'] + "-" + transaction['date']
+
   return transactionHistory
 
 
