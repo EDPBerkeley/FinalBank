@@ -126,6 +126,14 @@ def ch4(transactionHistory):
 #Code for the 5th chart
 #Get the total spending of the last 12 months
 def ch5(transactionHistory):
+
+  months = ["01","02","03","04","05","06","07","08","09","10","11","12"]
+
+  monthTotals = {"01":0,"02","03","04","05","06","07","08","09","10","11","12"}
+
+  for transaction in transactionHistory:
+    transactionMonth = transactionHistory['date'][4:6]
+
   return transactionHistory
 
 #Code for the 6th chart

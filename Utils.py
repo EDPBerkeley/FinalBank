@@ -38,3 +38,4 @@ def parseTransactions(parsedTransactions):
 #Key used to sort the transactions of the past 30 days
 def amount(transaction):
     return transaction['amount'];
+
