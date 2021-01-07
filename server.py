@@ -90,9 +90,9 @@ def ch3(transactionHistory):
   transactionHistoryCopy = transactionHistory
   top5 = []
 
-  #Add the first 5 transaction and remove them from the the copy of transactions
+  #Add the first 5 transactions and remove them from the the copy of transactions
   for i in range(0,5):
-    top5.append(transactionHistory[i]['amount'])
+    top5.append(transactionHistory[i])
     transactionHistoryCopy.pop(i)
 
   #Sort the transactions
@@ -106,11 +106,21 @@ def ch3(transactionHistory):
       top5.append(transaction)
       top5.sort(key = ut.amount)
 
-  return top5
+  #Loop through the array backwards and return a dict of formatted strings
+  strings = {}
+  index = 0
+  for transaction in reversed(top5):
+    strings[index] = "Name" + ": " + transaction["name"] + "   Amount: $" + str(transaction['amount']) + "   Date: " + transaction['date']
+    index += 1
+
+  return strings
 
 #Code for the 4th chart
 #Get the total spending of the last 30 days
-def ch4(transactionHistory):
+def ch4():
+
+  #Get transactions for the last 30 days
+
   #Create a new array that represents the totals of the last 30 days
   totals = []
   for i in range (0, 30):
@@ -184,10 +194,10 @@ def ch6(transactionHistory):
 @app.route('/analysis.html')
 def analysis():
   #Fetch the transactions for 365 days
-  transactionHistoryFullYear = get_transactions(365).json['transactions']
+  transactionHistoryFullYear = get_transactions(days = 365).json['transactions']
 
   #Get the transactions for the last 30 Days
-  transactionHistory30Days = get_transactions(30).json['transactions']
+  transactionHistory30Days = get_transactions(days = 30).json['transactions']
 
   #Get the data for the first chart
   chart1 = ch1(transactionHistory30Days)
@@ -374,10 +384,10 @@ def get_auth():
 # Retrieve Transactions for an Item
 # https://plaid.com/docs/#transactions
 @app.route('/api/transactions', methods=['GET'])
-def get_transactions(year, start_date = None, end_date = None, days = None):
+def get_transactions(year = None, start_date = None, end_date = None, days = None):
   with app.app_context():
     # Pull transactions for the last 30 days
-    if (not start_date and not end_date and not days):
+    if (not start_date and not end_date and not year):
       start_date = '{:%Y-%m-%d}'.format(datetime.datetime.now() + datetime.timedelta(-days))
       end_date = '{:%Y-%m-%d}'.format(datetime.datetime.now())
     else:
