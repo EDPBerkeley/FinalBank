@@ -13,6 +13,7 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from flask import jsonify
+from calendar import monthrange
 
 
 app = Flask(__name__)
@@ -125,16 +126,47 @@ def ch4(transactionHistory):
 
 #Code for the 5th chart
 #Get the total spending of the last 12 months
-def ch5(transactionHistory):
+def ch5():
 
-  months = ["01","02","03","04","05","06","07","08","09","10","11","12"]
+  # months = ["01","02","03","04","05","06","07","08","09","10","11","12"]
+  #
+  # monthTotals = {"01":0,"02","03","04","05","06","07","08","09","10","11","12"}
+  #
 
-  monthTotals = {"01":0,"02","03","04","05","06","07","08","09","10","11","12"}
+  #
+  # for transaction in transactionHistory:
+  #   transactionMonth = transactionHistory['date'][4:6]
 
-  for transaction in transactionHistory:
-    transactionMonth = transactionHistory['date'][4:6]
+  #Create a series of labels that correspond to the labels
+  labels = {1:"Jan", 2:"Feb", 3:"Mar", 4:"Apr", 5:"May", 6:"Jun", 7:"Jul", 8:"Aug", 9:"Sep", 10:"Oct", 11:"Nov", 12: "Dec"}
 
-  return transactionHistory
+  #Create a new dictionary that represents the amounts and months
+  totalYearTransactions = {}
+
+  #Get the current month
+  j = datetime.datetime.now().month
+
+  for i in range(0,13):
+    #Get the current month + i to represent
+    rawMonth = i + j
+    month = rawMonth % 12
+    year = j // 12
+
+
+    #Get the transactions for the given month and year
+    transactions = get_transactions(year, month).json['transactions']
+
+    #Assign a variable for the sum cost of transactions
+    totalForMonth = 0
+
+    # Loop through the transactions for the month and add the amounts to totalForMonth
+    for transaction in transactions:
+      totalForMonth += transaction['amount']
+
+    #Create a new key in the dictionary that corresponds to the month and add the value of totalForMonth
+    totalYearTransactions[labels[month]] = totalForMonth
+
+  return totalYearTransactions
 
 #Code for the 6th chart
 #Output a list of strings representing transactions of the last 30 days
@@ -335,11 +367,20 @@ def get_auth():
 # Retrieve Transactions for an Item
 # https://plaid.com/docs/#transactions
 @app.route('/api/transactions', methods=['GET'])
-def get_transactions(days):
+def get_transactions(year, start_date = None, end_date = None, days = None):
   with app.app_context():
     # Pull transactions for the last 30 days
-    start_date = '{:%Y-%m-%d}'.format(datetime.datetime.now() + datetime.timedelta(-days))
-    end_date = '{:%Y-%m-%d}'.format(datetime.datetime.now())
+    if (not start_date and not end_date and not days):
+      start_date = '{:%Y-%m-%d}'.format(datetime.datetime.now() + datetime.timedelta(-days))
+      end_date = '{:%Y-%m-%d}'.format(datetime.datetime.now())
+    else:
+      currYear = datetime.date.year - year
+      month = start_date
+      startMonth = monthrange(year, month)[0]
+      endMonth = monthrange(year, month)[1]
+      start_date = '{:%Y-%m-%d}'.format(datetime.datetime(currYear, month, startMonth))
+      end_date = '{:%Y-%m-%d}'.format(datetime.datetime(currYear, month, endMonth))
+
     try:
       transactions_response = client.Transactions.get(access_token, start_date, end_date)
     except plaid.errors.PlaidError as e:
