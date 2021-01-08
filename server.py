@@ -16,6 +16,7 @@ from flask import jsonify
 from calendar import monthrange
 
 
+
 app = Flask(__name__)
 
 
@@ -117,66 +118,132 @@ def ch3(transactionHistory):
 
 #Code for the 4th chart
 #Get the total spending of the last 30 days
-def ch4():
+def ch4(transactionHistory):
 
-  #Get transactions for the last 30 days
+  #Create a new dictionary to represent the total amounts
+  totals = {}
 
-  #Create a new array that represents the totals of the last 30 days
-  totals = []
-  for i in range (0, 30):
-    totals.append(0)
+  #Create all possible dates in the last 30 days and add them to the dict
+  baseDate = datetime.datetime.today()
+  for i in reversed(range(0,31)):
+    newDate = baseDate - datetime.timedelta(days=i)
+    totals[newDate.strftime("%Y") + "-" + newDate.strftime("%m") + "-" + newDate.strftime("%d")] = 0
 
-  #Loop through the transactions and add the amounts to the totals
-  index = 30
+  #Add the corresponding transaction to each date
   for transaction in transactionHistory:
-    totals[index] = transaction['amount']
-    index -= 1
+    totals[transaction['date']] += transaction['amount']
 
+
+  #Create a new dictionary where each of the keys are changed to just the day
+  modifiedTotals = {}
+  for date in totals:
+    modifiedTotals[date[8:10]] = totals[date]
+
+  #Return the reversed list
   return totals
+  # prevDate = (datetime.date.today() + datetime.timedelta(-30)).day
+  # #Loop through the transactions in reverse so that dates increase
+  # for transaction in reversed(transactionHistory):
+  #   currDate = int(transaction['date'][8:10])
+  #
+  #   #Second condition should only apply to the start of the loop
+  #   #If the current date is more than 1 bigger than the previous date append 0's
+  #   if (currDate > prevDate + 1):
+  #     totals += ([0] * (currDate - prevDate - 1))
+  #
+  #   else:
+  #     totals.append(transaction['amount'])
+  #
+  #   prevDate = currDate
+  #
+  # return reversed(totals)
+
+  # #Create a new array that represents the totals of the last 30 days
+  # totals = []
+  # for i in range (0, 30):
+  #   totals.append(0)
+  #
+  # #Loop through the transactions and add the amounts to the totals
+  # index = 30
+  # for transaction in transactionHistory:
+  #   totals[index] = transaction['amount']
+  #   index -= 1
 
 #Code for the 5th chart
 #Get the total spending of the last 12 months
-def ch5():
+def ch5(transactionHistory):
 
-  # months = ["01","02","03","04","05","06","07","08","09","10","11","12"]
-  #
-  # monthTotals = {"01":0,"02","03","04","05","06","07","08","09","10","11","12"}
-  #
+  #Create a new dictionary to represent the total amounts
+  totals = {}
 
-  #
-  # for transaction in transactionHistory:
-  #   transactionMonth = transactionHistory['date'][4:6]
+  #   #Create a series of labels that correspond to the labels
+  labels = {"01":"Jan", "02":"Feb", "03":"Mar", "04":"Apr", "05":"May", "06":"Jun", "07":"Jul", "08":"Aug", "09":"Sep", "10":"Oct", "11":"Nov", "12": "Dec"}
 
-  #Create a series of labels that correspond to the labels
-  labels = {1:"Jan", 2:"Feb", 3:"Mar", 4:"Apr", 5:"May", 6:"Jun", 7:"Jul", 8:"Aug", 9:"Sep", 10:"Oct", 11:"Nov", 12: "Dec"}
+  #Create all possible dates in the last 12 months and add them to the dict
+  baseDate = datetime.datetime.today()
+  for i in range(365,0, -1):
+    newDate = baseDate - datetime.timedelta(days=i)
+    monthAndYear = newDate.strftime("%Y") + "-" + newDate.strftime("%m")
+    if (monthAndYear not in totals):
+      totals[monthAndYear] = 0
 
-  #Create a new dictionary that represents the amounts and months
-  totalYearTransactions = {}
-
-  #Get the current month
-  j = datetime.datetime.now().month
-
-  for i in range(0,13):
-    #Get the current month + i to represent
-    rawMonth = i + j
-    month = rawMonth % 12
-    year = j // 12
+  #Add the corresponding transaction to each date
+  for transaction in transactionHistory:
+    totals[transaction['date'][0:7]] += transaction['amount']
 
 
-    #Get the transactions for the given month and year
-    transactions = get_transactions(year, month).json['transactions']
+  #Create a new dictionary where each of the keys are changed to just the day
+  modifiedTotals = []
+  for month in totals:
+    modifiedTotals.append([labels[month[5:7]],totals[month]])
 
-    #Assign a variable for the sum cost of transactions
-    totalForMonth = 0
+  #Return the reversed list
+  return modifiedTotals
 
-    # Loop through the transactions for the month and add the amounts to totalForMonth
-    for transaction in transactions:
-      totalForMonth += transaction['amount']
-
-    #Create a new key in the dictionary that corresponds to the month and add the value of totalForMonth
-    totalYearTransactions[labels[month]] = totalForMonth
-
-  return totalYearTransactions
+# def ch5():
+#
+#   # months = ["01","02","03","04","05","06","07","08","09","10","11","12"]
+#   #
+#   # monthTotals = {"01":0,"02","03","04","05","06","07","08","09","10","11","12"}
+#   #
+#
+#   #
+#   # for transaction in transactionHistory:
+#   #   transactionMonth = transactionHistory['date'][4:6]
+#
+#   #Create a series of labels that correspond to the labels
+#   labels = {1:"Jan", 2:"Feb", 3:"Mar", 4:"Apr", 5:"May", 6:"Jun", 7:"Jul", 8:"Aug", 9:"Sep", 10:"Oct", 11:"Nov", 12: "Dec"}
+#
+#   #Create a new dictionary that represents the amounts and months
+#   totalYearTransactions = {}
+#
+#   #Get the current month
+#   j = datetime.datetime.now().month
+#
+#   #Iterate through all possible months and use i and j as a modulus to wrap around
+#   for i in range(0,13):
+#     #Get the current month + i to represent
+#     rawMonth = i + j
+#     month = rawMonth % 12
+#
+#     #Represents when the month should start wrapping
+#     year = (j // 12) - 1
+#
+#
+#     #Get the transactions for the given month and year
+#     transactions = get_transactions(days=None, year=year, start_date=month).json['transactions']
+#
+#     #Assign a variable for the sum cost of transactions
+#     totalForMonth = 0
+#
+#     # Loop through the transactions for the month and add the amounts to totalForMonth
+#     for transaction in transactions:
+#       totalForMonth += transaction['amount']
+#
+#     #Create a new key in the dictionary that corresponds to the month and add the value of totalForMonth
+#     totalYearTransactions[labels[month]] = totalForMonth
+#
+#   return totalYearTransactions
 
 #Code for the 6th chart
 #Output a list of strings representing transactions of the last 30 days
@@ -186,9 +253,11 @@ def ch6(transactionHistory):
   #Loop through the transactions and add them to the dictionary
   i = 0
   for transaction in transactionHistory:
-    transaction[i] = transaction["merchant_name"] + ":" + transaction['amount'] + "-" + transaction['date']
+    transactions[i] = "Name" + ": " + transaction["name"] + "   Amount: $" + str(transaction['amount']) + "   Date: " + \
+                     transaction['date']
+    i += 1
 
-  return transactionHistory
+  return transactions
 
 
 @app.route('/analysis.html')
@@ -391,12 +460,12 @@ def get_transactions(year = None, start_date = None, end_date = None, days = Non
       start_date = '{:%Y-%m-%d}'.format(datetime.datetime.now() + datetime.timedelta(-days))
       end_date = '{:%Y-%m-%d}'.format(datetime.datetime.now())
     else:
-      currYear = datetime.date.year - year
+      currYear = datetime.datetime.today().year + year
       month = start_date
-      startMonth = monthrange(year, month)[0]
-      endMonth = monthrange(year, month)[1]
-      start_date = '{:%Y-%m-%d}'.format(datetime.datetime(currYear, month, startMonth))
-      end_date = '{:%Y-%m-%d}'.format(datetime.datetime(currYear, month, endMonth))
+      startingDay = 1
+      endingDay = monthrange(year, month)[1]
+      start_date = '{:%Y-%m-%d}'.format(datetime.datetime(currYear, month, startingDay))
+      end_date = '{:%Y-%m-%d}'.format(datetime.datetime(currYear, month, endingDay))
 
     try:
       transactions_response = client.Transactions.get(access_token, start_date, end_date)
