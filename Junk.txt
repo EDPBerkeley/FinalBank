@@ -10,3 +10,8 @@
 
 
     </script>
+
+
+      #Write the transactionHistory to the textFile
+  with open('Data/transactions.txt', 'w') as outfile:
+    json.dump(transactionHistoryFullYear.json['transactions'], outfile)

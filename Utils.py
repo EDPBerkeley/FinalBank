@@ -2,13 +2,14 @@ import json as j
 
 
 #A jsn class used to parse the JSON object
+from datetime import datetime
+
+
 class jsn:
     def __init__(self, jsn):
         self.__dict__ = j.load(jsn)
 
-def parseTransactions(transactions):
-    #assign a variable to represent the transactions
-    parsedTransactions = transactions.json['transactions']
+def parseTransactions(parsedTransactions):
 
     #Open the empty categories json file
     with open("Data/emptyCategories.json") as jsonFile:
@@ -34,4 +35,7 @@ def parseTransactions(transactions):
 
     return fullCategories
 
+#Key used to sort the transactions of the past 30 days
+def amount(transaction):
+    return transaction['amount'];
 

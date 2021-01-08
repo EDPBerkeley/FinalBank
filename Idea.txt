@@ -1,0 +1,11 @@
+1) Set the starting value of i to the current month
+2)Iterate through twelve times
+3)Designate a variable j to be i % 12
+4)Create a dict {"1": Jan, "2": Feb, etc.} and and the values that j corresponds to as it loops to a new dictionary
+so the new dict looks like {"May": 0, "June":0, ..., "May":0}
+5) Loop through the transactions and
+
+
+
+Or
+Just make 12 API calls by month

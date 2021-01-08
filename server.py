@@ -13,6 +13,8 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from flask import jsonify
+from calendar import monthrange
+
 
 
 app = Flask(__name__)
@@ -63,26 +65,237 @@ def index():
     'index.html',
   )
 
+
+
+#Code for 1st chart
+#Get the categorical spending of the last 30 Days
+def ch1(transactionHistory):
+
+
+  # Return a dictionary of the format {category: sum of goods purchased}
+  parsed_transactions = ut.parseTransactions(transactionHistory)
+  return parsed_transactions
+
+#Code for 2nd chart
+#Get the categorical spending of the last 12 months
+def ch2(transactionHistory):
+
+  # Return a dictionary of the format {category: sum of goods purchased}
+  parsed_transactions = ut.parseTransactions(transactionHistory)
+  return parsed_transactions
+
+#Code for the 3rd chart
+#Get the 5 Biggest Purchases of the last 12 months
+def ch3(transactionHistory):
+
+  transactionHistoryCopy = transactionHistory
+  top5 = []
+
+  #Add the first 5 transactions and remove them from the the copy of transactions
+  for i in range(0,5):
+    top5.append(transactionHistory[i])
+    transactionHistoryCopy.pop(i)
+
+  #Sort the transactions
+  top5.sort(key=ut.amount)
+
+  #Test if each element is less than the 1st
+  #If the element is less than the first append it and sort the list
+  for transaction in transactionHistoryCopy:
+    if (transaction['amount'] > top5[0]['amount']):
+      top5.pop(0)
+      top5.append(transaction)
+      top5.sort(key = ut.amount)
+
+  #Loop through the array backwards and return a dict of formatted strings
+  strings = {}
+  index = 0
+  for transaction in reversed(top5):
+    strings[index] = "Name" + ": " + transaction["name"] + "   Amount: $" + str(transaction['amount']) + "   Date: " + transaction['date']
+    index += 1
+
+  return strings
+
+#Code for the 4th chart
+#Get the total spending of the last 30 days
+def ch4(transactionHistory):
+
+  #Create a new dictionary to represent the total amounts
+  totals = {}
+
+  #Create all possible dates in the last 30 days and add them to the dict
+  baseDate = datetime.datetime.today()
+  for i in reversed(range(0,31)):
+    newDate = baseDate - datetime.timedelta(days=i)
+    totals[newDate.strftime("%Y") + "-" + newDate.strftime("%m") + "-" + newDate.strftime("%d")] = 0
+
+  #Add the corresponding transaction to each date
+  for transaction in transactionHistory:
+    totals[transaction['date']] += transaction['amount']
+
+
+  #Create a new dictionary where each of the keys are changed to just the day
+  modifiedTotals = {}
+  for date in totals:
+    modifiedTotals[date[8:10]] = totals[date]
+
+  #Return the reversed list
+  return totals
+  # prevDate = (datetime.date.today() + datetime.timedelta(-30)).day
+  # #Loop through the transactions in reverse so that dates increase
+  # for transaction in reversed(transactionHistory):
+  #   currDate = int(transaction['date'][8:10])
+  #
+  #   #Second condition should only apply to the start of the loop
+  #   #If the current date is more than 1 bigger than the previous date append 0's
+  #   if (currDate > prevDate + 1):
+  #     totals += ([0] * (currDate - prevDate - 1))
+  #
+  #   else:
+  #     totals.append(transaction['amount'])
+  #
+  #   prevDate = currDate
+  #
+  # return reversed(totals)
+
+  # #Create a new array that represents the totals of the last 30 days
+  # totals = []
+  # for i in range (0, 30):
+  #   totals.append(0)
+  #
+  # #Loop through the transactions and add the amounts to the totals
+  # index = 30
+  # for transaction in transactionHistory:
+  #   totals[index] = transaction['amount']
+  #   index -= 1
+
+#Code for the 5th chart
+#Get the total spending of the last 12 months
+def ch5(transactionHistory):
+
+  #Create a new dictionary to represent the total amounts
+  totals = {}
+
+  #   #Create a series of labels that correspond to the labels
+  labels = {"01":"Jan", "02":"Feb", "03":"Mar", "04":"Apr", "05":"May", "06":"Jun", "07":"Jul", "08":"Aug", "09":"Sep", "10":"Oct", "11":"Nov", "12": "Dec"}
+
+  #Create all possible dates in the last 12 months and add them to the dict
+  baseDate = datetime.datetime.today()
+  for i in range(365,0, -1):
+    newDate = baseDate - datetime.timedelta(days=i)
+    monthAndYear = newDate.strftime("%Y") + "-" + newDate.strftime("%m")
+    if (monthAndYear not in totals):
+      totals[monthAndYear] = 0
+
+  #Add the corresponding transaction to each date
+  for transaction in transactionHistory:
+    totals[transaction['date'][0:7]] += transaction['amount']
+
+
+  #Create a new dictionary where each of the keys are changed to just the day
+  modifiedTotals = []
+  for month in totals:
+    modifiedTotals.append([labels[month[5:7]],totals[month]])
+
+  #Return the reversed list
+  return modifiedTotals
+
+# def ch5():
+#
+#   # months = ["01","02","03","04","05","06","07","08","09","10","11","12"]
+#   #
+#   # monthTotals = {"01":0,"02","03","04","05","06","07","08","09","10","11","12"}
+#   #
+#
+#   #
+#   # for transaction in transactionHistory:
+#   #   transactionMonth = transactionHistory['date'][4:6]
+#
+#   #Create a series of labels that correspond to the labels
+#   labels = {1:"Jan", 2:"Feb", 3:"Mar", 4:"Apr", 5:"May", 6:"Jun", 7:"Jul", 8:"Aug", 9:"Sep", 10:"Oct", 11:"Nov", 12: "Dec"}
+#
+#   #Create a new dictionary that represents the amounts and months
+#   totalYearTransactions = {}
+#
+#   #Get the current month
+#   j = datetime.datetime.now().month
+#
+#   #Iterate through all possible months and use i and j as a modulus to wrap around
+#   for i in range(0,13):
+#     #Get the current month + i to represent
+#     rawMonth = i + j
+#     month = rawMonth % 12
+#
+#     #Represents when the month should start wrapping
+#     year = (j // 12) - 1
+#
+#
+#     #Get the transactions for the given month and year
+#     transactions = get_transactions(days=None, year=year, start_date=month).json['transactions']
+#
+#     #Assign a variable for the sum cost of transactions
+#     totalForMonth = 0
+#
+#     # Loop through the transactions for the month and add the amounts to totalForMonth
+#     for transaction in transactions:
+#       totalForMonth += transaction['amount']
+#
+#     #Create a new key in the dictionary that corresponds to the month and add the value of totalForMonth
+#     totalYearTransactions[labels[month]] = totalForMonth
+#
+#   return totalYearTransactions
+
+#Code for the 6th chart
+#Output a list of strings representing transactions of the last 30 days
+def ch6(transactionHistory):
+  transactions = {}
+
+  #Loop through the transactions and add them to the dictionary
+  i = 0
+  for transaction in transactionHistory:
+    transactions[i] = "Name" + ": " + transaction["name"] + "   Amount: $" + str(transaction['amount']) + "   Date: " + \
+                     transaction['date']
+    i += 1
+
+  return transactions
+
+
 @app.route('/analysis.html')
 def analysis():
-  # with app.app_context():
+  #Fetch the transactions for 365 days
+  transactionHistoryFullYear = get_transactions(days = 365).json['transactions']
+
+  #Get the transactions for the last 30 Days
+  transactionHistory30Days = get_transactions(days = 30).json['transactions']
+
+  #Get the data for the first chart
+  chart1 = ch1(transactionHistory30Days)
+
+  #Get the data for the second chart
+  chart2 = ch2(transactionHistoryFullYear)
+
+  #Get the data for the third chart
+  chart3 = ch3(transactionHistoryFullYear)
+
+  #Get the data for the fourth chart
+  chart4 = ch4(transactionHistory30Days)
+
+  #Get the data for the fifth chart
+  chart5 = ch5(transactionHistoryFullYear)
+
+  #Get the data for the sixth chart
+  chart6 = ch6(transactionHistory30Days)
 
 
-    #Get a JSON of the transactions
-    transactionHistory = get_transactions()
-
-
-    #Return a dictionary of the format {category: sum of goods purchased}
-    parsed_transactions = ut.parseTransactions(transactionHistory)
-
-
-
-
-
-    return render_template(
-      'analysis.html',
-      chart1 = parsed_transactions
-    )
+  return render_template(
+    'analysis.html',
+    chart1 = chart1,
+    chart2 = chart2,
+    chart3 = chart3,
+    chart4 = chart4,
+    chart5 = chart5,
+    chart6 = chart6
+  )
 
 
 
@@ -184,47 +397,47 @@ def create_link_token():
 # Exchange token flow - exchange a Link public_token for
 # an API access_token
 # https://plaid.com/docs/#exchange-token-flow
-@app.route('/api/set_access_token', methods=['POST'])
-def get_access_token():
-  global access_token
-  global item_id
-  public_token = request.form['public_token']
-  try:
-    exchange_response = client.Item.public_token.exchange(public_token)
-  except plaid.errors.PlaidError as e:
-    return jsonify(format_error(e))
-
-  pretty_print_response(exchange_response)
-  access_token = exchange_response['access_token']
-  item_id = exchange_response['item_id']
-  return jsonify(exchange_response)
-
-
-# Bypass Link and create a public token
-# @app.route('/sandbox/public_token/create', methods=['GET'])
-# def get_link():
-#   global res
-#   res = client.Sandbox.public_token.create(
-#           "ins_118923",
-#           ['transactions']
-#         )
-#   pretty_print_response(res)
-
-
-
-
-# Bypass Link and create a public token
-# @app.route('/sandbox/public_token/create', methods=['GET'])
-# def exchange_link_for_access():
-#   # The generated public_token can now be
-#   # exchanged for an access_token
+# @app.route('/api/set_access_token', methods=['POST'])
+# def get_access_token():
 #   global access_token
-#   publicToken = res['public_token']
-#   access_token = client.Item.public_token.exchange(publicToken)
+#   global item_id
+#   public_token = request.form['public_token']
+#   try:
+#     exchange_response = client.Item.public_token.exchange(public_token)
+#   except plaid.errors.PlaidError as e:
+#     return jsonify(format_error(e))
 #
-#   #Reassign access_token the proper subfield of the access token
-#   access_token = access_token['access_token']
-#   pretty_print_response(access_token)
+#   pretty_print_response(exchange_response)
+#   access_token = exchange_response['access_token']
+#   item_id = exchange_response['item_id']
+#   return jsonify(exchange_response)
+
+
+# Bypass Link and create a public token
+@app.route('/sandbox/public_token/create', methods=['GET'])
+def get_link():
+  global res
+  res = client.Sandbox.public_token.create(
+          "ins_118923",
+          ['transactions']
+        )
+  pretty_print_response(res)
+
+
+
+
+# Bypass Link and create a public token
+@app.route('/sandbox/public_token/create', methods=['GET'])
+def exchange_link_for_access():
+  # The generated public_token can now be
+  # exchanged for an access_token
+  global access_token
+  publicToken = res['public_token']
+  access_token = client.Item.public_token.exchange(publicToken)
+
+  #Reassign access_token the proper subfield of the access token
+  access_token = access_token['access_token']
+  pretty_print_response(access_token)
 
 # Retrieve ACH or ETF account numbers for an Item
 # https://plaid.com/docs/#auth
@@ -240,11 +453,20 @@ def get_auth():
 # Retrieve Transactions for an Item
 # https://plaid.com/docs/#transactions
 @app.route('/api/transactions', methods=['GET'])
-def get_transactions():
-  # with app.app_context():
+def get_transactions(year = None, start_date = None, end_date = None, days = None):
+  with app.app_context():
     # Pull transactions for the last 30 days
-    start_date = '{:%Y-%m-%d}'.format(datetime.datetime.now() + datetime.timedelta(-30))
-    end_date = '{:%Y-%m-%d}'.format(datetime.datetime.now())
+    if (not start_date and not end_date and not year):
+      start_date = '{:%Y-%m-%d}'.format(datetime.datetime.now() + datetime.timedelta(-days))
+      end_date = '{:%Y-%m-%d}'.format(datetime.datetime.now())
+    else:
+      currYear = datetime.datetime.today().year + year
+      month = start_date
+      startingDay = 1
+      endingDay = monthrange(year, month)[1]
+      start_date = '{:%Y-%m-%d}'.format(datetime.datetime(currYear, month, startingDay))
+      end_date = '{:%Y-%m-%d}'.format(datetime.datetime(currYear, month, endingDay))
+
     try:
       transactions_response = client.Transactions.get(access_token, start_date, end_date)
     except plaid.errors.PlaidError as e:
@@ -383,9 +605,9 @@ def format_error(e):
   return {'error': {'display_message': e.display_message, 'error_code': e.code, 'error_type': e.type, 'error_message': e.message } }
 
 
-# get_link()
-# exchange_link_for_access()
-# analysis()
+get_link()
+exchange_link_for_access()
+analysis()
 # x = 10
 
 if __name__ == '__main__':
