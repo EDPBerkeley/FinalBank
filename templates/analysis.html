@@ -14,6 +14,7 @@
     var chart1 = '{{chart1|tojson}}';
     var chart2 = '{{chart2|tojson}}';
 
+
     var chart4 = '{{chart4|tojson}}';
     var chart5 = '{{chart5|tojson}}';
   </script>
@@ -47,11 +48,9 @@
       <div class = "Translucent-Box">
         <h1 class = "Box-Header">5 Biggest Purchases in Last 12 Months</h1>
         <div class = "PanelThree">
-          <ul>Uber </ul>
-          <ul>Apple </ul>
-          <ul>McDonalds </ul>
-          <ul>Samsung</ul>
-          <ul>HP </ul>
+          {% for purchase in chart3%}
+            <ul>{{purchase}}</ul>
+          {% endfor %}
         </div>
       </div>  
     </div>
@@ -70,16 +69,9 @@
       <div class = "Translucent-Box">
         <h1 class = "Box-Header">Transaction of the Past 30 Days</h1>
         <div class = "PanelThree">
-          <ul>Uber </ul>
-          <ul>Apple </ul>
-          <ul>McDonalds </ul>
-          <ul>Samsung</ul>
-          <ul>HP </ul>
-          <ul>Uber </ul>
-          <ul>Apple </ul>
-          <ul>McDonalds </ul>
-          <ul>Samsung</ul>
-          <ul>HP </ul>
+          {% for purchase in chart6%}
+            <ul>{{purchase}}</ul>
+          {% endfor %}
         </div>
       </div>
   </div>

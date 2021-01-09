@@ -108,10 +108,10 @@ def ch3(transactionHistory):
       top5.sort(key = ut.amount)
 
   #Loop through the array backwards and return a dict of formatted strings
-  strings = {}
+  strings = [0 for _ in range(0,5)]
   index = 0
   for transaction in reversed(top5):
-    strings[index] = "Name" + ": " + transaction["name"] + "   Amount: $" + str(transaction['amount']) + "   Date: " + transaction['date']
+    strings[index] = transaction["name"] + " - $" + str(transaction['amount'])
     index += 1
 
   return strings
@@ -131,16 +131,19 @@ def ch4(transactionHistory):
 
   #Add the corresponding transaction to each date
   for transaction in transactionHistory:
-    totals[transaction['date']] += transaction['amount']
+    if(transaction['amount'] > 0):
+      totals[transaction['date']] += transaction['amount']
 
 
   #Create a new dictionary where each of the keys are changed to just the day
   modifiedTotals = {}
+  index2 = 0
   for date in totals:
-    modifiedTotals[date[8:10]] = totals[date]
+    modifiedTotals[index2] = totals[date]
+    index2 += 1
 
   #Return the reversed list
-  return totals
+  return modifiedTotals
   # prevDate = (datetime.date.today() + datetime.timedelta(-30)).day
   # #Loop through the transactions in reverse so that dates increase
   # for transaction in reversed(transactionHistory):
@@ -248,7 +251,7 @@ def ch5(transactionHistory):
 #Code for the 6th chart
 #Output a list of strings representing transactions of the last 30 days
 def ch6(transactionHistory):
-  transactions = {}
+  transactions = [0 for _ in transactionHistory]
 
   #Loop through the transactions and add them to the dictionary
   i = 0
@@ -270,22 +273,33 @@ def analysis():
 
   #Get the data for the first chart
   chart1 = ch1(transactionHistory30Days)
+  chart1JSON = json.dumps(chart1)
+  print("Chart 1: " + chart1JSON + "\n")
 
   #Get the data for the second chart
   chart2 = ch2(transactionHistoryFullYear)
+  chart2JSON = json.dumps(chart2)
+  print("Chart 2: " + chart2JSON + "\n")
 
   #Get the data for the third chart
   chart3 = ch3(transactionHistoryFullYear)
+  chart3JSON = json.dumps(chart3)
+  print("Chart 3: " + chart3JSON + "\n")
 
   #Get the data for the fourth chart
   chart4 = ch4(transactionHistory30Days)
+  chart4JSON = json.dumps(chart4)
+  print("Chart 4: " + chart4JSON + "\n")
 
   #Get the data for the fifth chart
   chart5 = ch5(transactionHistoryFullYear)
+  chart5JSON = json.dumps(chart5)
+  print("Chart 5: " + chart5JSON + "\n")
 
   #Get the data for the sixth chart
   chart6 = ch6(transactionHistory30Days)
-
+  chart6JSON = json.dumps(chart6)
+  print("Chart 6: " + chart6JSON + "\n")
 
   return render_template(
     'analysis.html',
@@ -397,47 +411,47 @@ def create_link_token():
 # Exchange token flow - exchange a Link public_token for
 # an API access_token
 # https://plaid.com/docs/#exchange-token-flow
-# @app.route('/api/set_access_token', methods=['POST'])
-# def get_access_token():
-#   global access_token
-#   global item_id
-#   public_token = request.form['public_token']
-#   try:
-#     exchange_response = client.Item.public_token.exchange(public_token)
-#   except plaid.errors.PlaidError as e:
-#     return jsonify(format_error(e))
-#
-#   pretty_print_response(exchange_response)
-#   access_token = exchange_response['access_token']
-#   item_id = exchange_response['item_id']
-#   return jsonify(exchange_response)
-
-
-# Bypass Link and create a public token
-@app.route('/sandbox/public_token/create', methods=['GET'])
-def get_link():
-  global res
-  res = client.Sandbox.public_token.create(
-          "ins_118923",
-          ['transactions']
-        )
-  pretty_print_response(res)
-
-
-
-
-# Bypass Link and create a public token
-@app.route('/sandbox/public_token/create', methods=['GET'])
-def exchange_link_for_access():
-  # The generated public_token can now be
-  # exchanged for an access_token
+@app.route('/api/set_access_token', methods=['POST'])
+def get_access_token():
   global access_token
-  publicToken = res['public_token']
-  access_token = client.Item.public_token.exchange(publicToken)
+  global item_id
+  public_token = request.form['public_token']
+  try:
+    exchange_response = client.Item.public_token.exchange(public_token)
+  except plaid.errors.PlaidError as e:
+    return jsonify(format_error(e))
 
-  #Reassign access_token the proper subfield of the access token
-  access_token = access_token['access_token']
-  pretty_print_response(access_token)
+  pretty_print_response(exchange_response)
+  access_token = exchange_response['access_token']
+  item_id = exchange_response['item_id']
+  return jsonify(exchange_response)
+
+
+# Bypass Link and create a public token
+# @app.route('/sandbox/public_token/create', methods=['GET'])
+# def get_link():
+#   global res
+#   res = client.Sandbox.public_token.create(
+#           "ins_118923",
+#           ['transactions']
+#         )
+#   pretty_print_response(res)
+
+
+
+
+# Bypass Link and create a public token
+# @app.route('/sandbox/public_token/create', methods=['GET'])
+# def exchange_link_for_access():
+#   # The generated public_token can now be
+#   # exchanged for an access_token
+#   global access_token
+#   publicToken = res['public_token']
+#   access_token = client.Item.public_token.exchange(publicToken)
+#
+#   #Reassign access_token the proper subfield of the access token
+#   access_token = access_token['access_token']
+#   pretty_print_response(access_token)
 
 # Retrieve ACH or ETF account numbers for an Item
 # https://plaid.com/docs/#auth
@@ -605,9 +619,9 @@ def format_error(e):
   return {'error': {'display_message': e.display_message, 'error_code': e.code, 'error_type': e.type, 'error_message': e.message } }
 
 
-get_link()
-exchange_link_for_access()
-analysis()
+# get_link()
+# exchange_link_for_access()
+# analysis()
 # x = 10
 
 if __name__ == '__main__':
