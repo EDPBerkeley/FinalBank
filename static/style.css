@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Alegreya&family=Alegreya+Sans&family=Alegreya+Sans+SC&family=Lato&family=Open+Sans&family=Roboto&display=swap');
+
+
 /*
 
 Base
@@ -78,7 +81,7 @@ Content at the top of the view
 
 .everpresent-content {
   border-bottom-width: 1px;
-  border-bottom-color: #E3E9EF;
+  border-bottom-color: #000000;
   border-bottom-style: solid;
   margin-bottom: 16px;
   padding-bottom: 16px;
@@ -86,12 +89,13 @@ Content at the top of the view
 
 .everpresent-content__heading {
   margin-bottom: 16px;
+  color: #000000;
 }
 
 .everpresent-content__subheading {
   font-size: 24px;
   font-weight: 300;
-  color: #527084;
+  color: #000000;
   line-height: 32px;
   margin-bottom: 0;
 }
@@ -290,4 +294,13 @@ Errors
   margin: 0 auto;
 }
 
+.para {
+  color: #000000;
+}
+
+.linkBtn {
+  font-family: 'Alegreya Sans SC';
+  font-size: 100%;
+  color: black;
+}
 

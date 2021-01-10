@@ -131,15 +131,18 @@ def ch4(transactionHistory):
 
   #Add the corresponding transaction to each date
   for transaction in transactionHistory:
-    if(transaction['amount'] > 0):
+    print("Name: " + transaction['name'] + "  Category: " + transaction['category'][0] + "  Amount: " + str(
+      transaction['amount']))
+    if ((len(transaction) < 1) or (len(transaction['category']) > 1 and transaction['category'][1] != "Credit")):
       totals[transaction['date']] += transaction['amount']
+
 
 
   #Create a new dictionary where each of the keys are changed to just the day
   modifiedTotals = {}
   index2 = 0
   for date in totals:
-    modifiedTotals[index2] = totals[date]
+    modifiedTotals[index2] = round(totals[date], 2)
     index2 += 1
 
   #Return the reversed list
@@ -192,13 +195,16 @@ def ch5(transactionHistory):
 
   #Add the corresponding transaction to each date
   for transaction in transactionHistory:
-    totals[transaction['date'][0:7]] += transaction['amount']
+    if ((len(transaction) < 1) or (len(transaction['category']) > 1 and transaction['category'][1] != "Credit")):
+      totals[transaction['date'][0:7]] += round(transaction['amount'], 2)
+    print("Name: " + transaction['name'] + "  Category: " + transaction['category'][0] + "  Amount: " + str(
+      transaction['amount']))
 
 
   #Create a new dictionary where each of the keys are changed to just the day
   modifiedTotals = []
   for month in totals:
-    modifiedTotals.append([labels[month[5:7]],totals[month]])
+    modifiedTotals.append([labels[month[5:7]],round(totals[month], 2)])
 
   #Return the reversed list
   return modifiedTotals
@@ -266,7 +272,11 @@ def ch6(transactionHistory):
 @app.route('/analysis.html')
 def analysis():
   #Fetch the transactions for 365 days
+
   transactionHistoryFullYear = get_transactions(days = 365).json['transactions']
+  with open('Data/AMEXTransactions.json', 'w') as outfile:
+    json.dump(transactionHistoryFullYear, outfile)
+
 
   #Get the transactions for the last 30 Days
   transactionHistory30Days = get_transactions(days = 30).json['transactions']
@@ -468,7 +478,7 @@ def get_auth():
 # https://plaid.com/docs/#transactions
 @app.route('/api/transactions', methods=['GET'])
 def get_transactions(year = None, start_date = None, end_date = None, days = None):
-  with app.app_context():
+
     # Pull transactions for the last 30 days
     if (not start_date and not end_date and not year):
       start_date = '{:%Y-%m-%d}'.format(datetime.datetime.now() + datetime.timedelta(-days))
@@ -482,11 +492,30 @@ def get_transactions(year = None, start_date = None, end_date = None, days = Non
       end_date = '{:%Y-%m-%d}'.format(datetime.datetime(currYear, month, endingDay))
 
     try:
-      transactions_response = client.Transactions.get(access_token, start_date, end_date)
+      transactions_response = client.Transactions.get(access_token, start_date, end_date, count=500)
     except plaid.errors.PlaidError as e:
       return jsonify(format_error(e))
     pretty_print_response(transactions_response)
     return jsonify(transactions_response)
+
+# Retrieve Transactions for an Item
+# https://plaid.com/docs/#transactions
+# @app.route('/api/transactions', methods=['GET'])
+# def get_transactions(start_date = None, end_date = None, days = None):
+#
+#     # Pull transactions for the last 30 days
+#     if (not start_date and not end_date and not year):
+#       start_date = '{:%Y-%m-%d}'.format((datetime.datetime.now() + datetime.timedelta(-days)) - (datetime.datetime.now() + datetime.timedelta(-days)))
+#       end_date = '{:%Y-%m-%d}'.format(datetime.datetime.now())
+#
+#
+#     try:
+#       transactions_response = client.Transactions.get(access_token, start_date, end_date)
+#     except plaid.errors.PlaidError as e:
+#       return jsonify(format_error(e))
+#     pretty_print_response(transactions_response)
+#     return jsonify(transactions_response)
+
 
 # Retrieve Identity data for an Item
 # https://plaid.com/docs/#identity

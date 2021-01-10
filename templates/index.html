@@ -1,11 +1,14 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <title>Plaid Quickstart Example</title>
-    <link rel="stylesheet" href="https://threads.plaid.com/threads.css" />
+    <link rel="stylesheet" href="../static/threads.css" />
 
     <link rel="stylesheet" type="text/css" href="../static/style.css" />
+    <link rel = "stylesheet" type= "text/css" href="../static/analysis.css">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
 
@@ -14,35 +17,46 @@
       <div class="grid">
         <div class="grid__column grid__column--is-twelve-columns">
           <div id="banner" class="everpresent-content">
-            <h1 class="everpresent-content__heading">Plaid Quickstart</h1>
+            <h1 class="everpresent-content__heading">LogIT</h1>
             <p id="intro" class="everpresent-content__subheading">
-              An example application that outlines an end-to-end integration
-              with Plaid
+
+              LogIT is an free internet-software that allows you to view and track your financial transactions to stay
+              financially smart.
+
             </p>
           </div>
 
           <div id="container" class="initial-view">
-            <p class="initial-view__description">
+            <p class="para">
+              <strong>
+              We use Plaid software to make sure
+              that your bank records stay completely secure. LogIT never sees any of your bank authentication information
+              at any time - period. For more information on Plaid click <a href = "Plaid.com"> here</a>.
               Click the button below to open a list of Institutions. After you
-              select one, you’ll be guided through an authentication process. If
-              using the default Sandbox environment, use username
-              <strong>user_good</strong> and password
-              <strong>pass_good</strong>. Upon completion, a
-              <code>public_token</code> will be passed back to the server and
-              exchanged for <code>access_token</code>.
+              select one, you’ll be guided through an authentication process.
+              </strong>
             </p>
-
-            <button id="link-btn" class="button button--is-primary" disabled>
-              Connect with Plaid
-            </button>
+            <div style="text-align: center;">
+               <button id="link-btn" class="button button--is-primary" disabled>
+                 <div class="linkBtn">
+                   <div style="text-align: center;">
+                    Connect with Plaid
+                   </div>
+                 </div>
+               </button>
+            </div>
             <div class="loading-indicator"></div>
+
+
           </div>
+
 
             </div>
 
           <div id="app" class="connected-view">
               <div style="text-align: center;">
-                <a href="analysis.html"><button>Click Here</button></a>
+<!--                <a href="analysis.html"><button>Click Here</button></a>-->
+
               </div>
 
 
@@ -1521,3 +1535,9 @@
 <!--    </script>-->
 <!--  </body>-->
 <!--</html>-->
+
+
+
+<!--<button id="link-btn" class="button button&#45;&#45;is-primary" disabled>-->
+<!--  Connect with Plaid-->
+<!--</button>-->

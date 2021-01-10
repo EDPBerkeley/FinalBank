@@ -31,6 +31,10 @@ def parseTransactions(parsedTransactions):
         #Add the relevant amount
         fullCategories[mappedCategory] += transaction['amount']
 
+    #Round each number to 2 decimal places
+    for category in fullCategories:
+        fullCategories[category] = round(fullCategories[category], 2)
+
     print(fullCategories)
 
     return fullCategories

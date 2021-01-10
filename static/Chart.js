@@ -22,7 +22,7 @@ let myChart = new Chart(ctx1, {
     legend: {
       position: 'bottom',
       labels: {
-        fontColor: 'white'
+        fontColor: '#4c4c4c'
       }
     },
     
@@ -30,7 +30,7 @@ let myChart = new Chart(ctx1, {
     plugins: {
       
       datalabels: {
-        color: '#fff',
+        color: '#4c4c4c',
         anchor: 'end',
         align: 'start',
         offset: 10,
@@ -40,7 +40,7 @@ let myChart = new Chart(ctx1, {
         
         font: {
           size: '10',
-          color: '#fff'
+          color: '#4c4c4c'
         },
         formatter: (value) => {
           return value + ' %';
@@ -74,7 +74,7 @@ let myChart2 = new Chart(ctx2, {
     legend: {
       position: 'bottom',
       labels: {
-        fontColor: 'white'
+        fontColor: '#4c4c4c'
       }
     },
     ticks: {
@@ -85,7 +85,7 @@ let myChart2 = new Chart(ctx2, {
     plugins: {
       
       datalabels: {
-        color: '#fff',
+        color: '#4c4c4c',
         anchor: 'end',
         align: 'start',
         offset: 10,
@@ -95,7 +95,7 @@ let myChart2 = new Chart(ctx2, {
         
         font: {
           size: '10',
-          color: '#fff'
+          color: '#4c4c4c'
         },
         formatter: (value) => {
           return value + ' %';
@@ -178,7 +178,7 @@ let myChart4 = new Chart(ctx4, {
     ]
   },
   options: {
-    scaleFontColor: "white",
+    scaleFontColor: "4c4c4c",
     legend: {
       display: false,
     },
@@ -190,7 +190,7 @@ let myChart4 = new Chart(ctx4, {
       xAxes: [{
         gridLines: {
           display: false ,
-          color: "#FFFFFF"
+          color: "#4c4c4c"
         },
          ticks: {
             fontColor: "white",
@@ -199,17 +199,17 @@ let myChart4 = new Chart(ctx4, {
       yAxes: [{
         gridLines: {
           display: false ,
-          color: "#FFFFFF"
+          color: "#4c4c4c"
         },
          ticks: {
-            fontColor: "white",
+            fontColor: "#4c4c4c",
          }
       }]
    },
    plugins: {
       
     datalabels: {
-      color: '#fff',
+      color: '#4c4c4c',
       anchor: 'end',
       align: 'start',
       offset: 10,
@@ -247,7 +247,7 @@ let myChart5 = new Chart(ctx5, {
     ]
   },
   options: {
-    scaleFontColor: "white",
+    scaleFontColor: "#4c4c4c",
     legend: {
       display: false,
     },
@@ -259,26 +259,26 @@ let myChart5 = new Chart(ctx5, {
       xAxes: [{
         gridLines: {
           display: false ,
-          color: "#FFFFFF"
+          color: "#4c4c4c"
         },
          ticks: {
-            fontColor: "white",
+            fontColor: "#4c4c4c",
          }
       }],
       yAxes: [{
         gridLines: {
           display: false ,
-          color: "#FFFFFF"
+          color: "#4c4c4c"
         },
          ticks: {
-            fontColor: "white",
+            fontColor: "#4c4c4c",
          }
       }]
    },
    plugins: {
       
     datalabels: {
-      color: '#fff',
+      color: '#4c4c4c',
       anchor: 'end',
       align: 'start',
       offset: 10,
