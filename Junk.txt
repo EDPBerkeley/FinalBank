@@ -1,0 +1,17 @@
+      <script type="text/javascript">
+        var banking = '{{ data[Banking] }}'
+        var recreation = '{{ data[Recreation] }}'
+        var foodAndDrink = '{{ data[foodAndDrink] }}'
+        var healthcare = '{{ data[Healthcare] }}'
+        var shopping = '{{ data[Shopping] }}'
+        var finances = '{{ data[Finances] }}'
+        var transportation = '{{ data[Transportation] }}'
+
+
+
+    </script>
+
+
+      #Write the transactionHistory to the textFile
+  with open('Data/transactions.txt', 'w') as outfile:
+    json.dump(transactionHistoryFullYear.json['transactions'], outfile)

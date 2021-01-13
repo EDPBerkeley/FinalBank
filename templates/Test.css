@@ -1,0 +1,8 @@
+.Box {
+  margin: 50px;
+  background: #73ad21;
+  padding: 20px;
+  width: 10px;
+  height: 50px;
+  border: 10px salmon;
+}
