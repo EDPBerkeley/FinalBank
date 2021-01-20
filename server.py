@@ -9,6 +9,7 @@ import plaid
 import json
 import time
 import Utils as ut
+import User as us
 from flask import Flask
 from flask import render_template
 from flask import request
@@ -62,7 +63,21 @@ client = plaid.Client(client_id=PLAID_CLIENT_ID,
 @app.route('/')
 def index():
   return render_template(
-    'index.html',
+    'signin.html',
+  )
+
+@app.route('/signup', methods = ["GET", "POST"])
+def signup():
+
+  if (request.method == "POST"):
+    email = request.form['email']
+    password = request.form['password']
+
+    user = us.User().signup(email=email, password=password)
+    print(user)
+
+  return render_template(
+    'signup.html',
   )
 
 
