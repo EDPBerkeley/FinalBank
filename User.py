@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, session
 from passlib.hash import pbkdf2_sha256
 import json
 import uuid
@@ -6,6 +6,13 @@ import jsonify
 import datetime
 
 class User:
+
+    def start_session(self, user):
+        session['logged_in'] = True
+        session['User'] = user
+        return json.dumps(session)
+
+
 
     def signup(self, email, password):
 
@@ -21,4 +28,4 @@ class User:
 
         user["password"] = pbkdf2_sha256.encrypt(user["password"])
 
-        return json.dumps(user)
+        return user

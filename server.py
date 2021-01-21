@@ -10,7 +10,9 @@ import json
 import time
 import Utils as ut
 import User as us
-from flask import Flask
+import pymongo
+from pymongo import MongoClient
+from flask import Flask, redirect
 from flask import render_template
 from flask import request
 from flask import jsonify
@@ -68,6 +70,10 @@ def index():
 
 @app.route('/signup', methods = ["GET", "POST"])
 def signup():
+  client = pymongo.MongoClient(
+    "mongodb+srv://ErchisPatwardhan:Aaibaba**13@users.fszlz.mongodb.net/Users?retryWrites=true&w=majority")
+  db = client.get_database('FinalBankUsers')
+  userdataBase = db.Users
 
   if (request.method == "POST"):
     email = request.form['email']
@@ -76,11 +82,27 @@ def signup():
     user = us.User().signup(email=email, password=password)
     print(user)
 
+
+    #Add the user to the mongoDB server
+    if (userdataBase.insert_one(user)):
+      print("user succesfully added")
+
+      # Start a session
+      us.User.start_session(user)
+
+      redirect('')
+
+    else:
+      return redirect('/')
+
+
+
+
   return render_template(
     'signup.html',
   )
 
-
+@app.route('/homepage', methods = ['GET', 'POST'])
 
 #Code for 1st chart
 #Get the categorical spending of the last 30 Days
