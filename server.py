@@ -67,7 +67,7 @@ client = plaid.Client(client_id=PLAID_CLIENT_ID,
 @app.route('/')
 def index():
   return render_template(
-    'signin.html',
+    'index.html',
   )
 
 @app.route('/signup', methods = ["GET", "POST"])
