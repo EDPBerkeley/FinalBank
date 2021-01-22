@@ -12,7 +12,7 @@ import Utils as ut
 import User as us
 import pymongo
 from pymongo import MongoClient
-from flask import Flask, redirect
+from flask import Flask, redirect, session
 from flask import render_template
 from flask import request
 from flask import jsonify
@@ -21,6 +21,8 @@ from calendar import monthrange
 
 
 app = Flask(__name__)
+app.secret_key = b'O\xb2+h,\x96\xcb\xf3\x9a9\xbd*\x90W\x06\xca'
+
 
 
 # Fill in your Plaid API keys - https://dashboard.plaid.com/account/keys
@@ -88,9 +90,9 @@ def signup():
       print("user succesfully added")
 
       # Start a session
-      us.User.start_session(user)
+      ses = us.User.start_session(user)
 
-      redirect('')
+      redirect('/homepage')
 
     else:
       return redirect('/')
@@ -103,6 +105,8 @@ def signup():
   )
 
 @app.route('/homepage', methods = ['GET', 'POST'])
+def homepage():
+  return render_template('index.html')
 
 #Code for 1st chart
 #Get the categorical spending of the last 30 Days
