@@ -10,7 +10,7 @@ class User:
     def start_session(self, user):
         session['logged_in'] = True
         session['User'] = user
-        return json.dumps(session)
+        return json.dumps(user)
 
 
 
@@ -29,3 +29,14 @@ class User:
         user["password"] = pbkdf2_sha256.encrypt(user["password"])
 
         return user
+
+    def signin(self, userDataBase, email, password):
+        user = userDataBase.find_one({
+            "email" : email
+        })
+
+        if (user and pbkdf2_sha256.verify(password, user["password"])):
+            return (True, user)
+
+        return (False, None)
+

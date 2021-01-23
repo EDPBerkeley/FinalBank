@@ -64,17 +64,49 @@ client = plaid.Client(client_id=PLAID_CLIENT_ID,
                       environment=PLAID_ENV,
                       api_version='2019-05-29')
 
-@app.route('/')
+#define global variables
+currUser = None
+userdataBase = None
+access_token = None
+
+@app.route('/', methods = ['GET', 'POST'])
 def index():
+  # return redirect("/signup")
+  if (request.method == 'POST'):
+    client = pymongo.MongoClient(
+      "mongodb+srv://ErchisPatwardhan:Aaibaba**13@users.fszlz.mongodb.net/Users?retryWrites=true&w=majority")
+    db = client.get_database('FinalBankUsers')
+    global userdataBase
+    userdataBase = db.Users
+
+    email = request.form['email']
+    password = request.form['password']
+
+    signIn = us.User().signin(userDataBase=userdataBase, email=email, password=password)
+    success = signIn[0]
+    if (success):
+      print("user succesfully signed in")
+
+      global currUser
+      currUser = signIn[1]
+
+      us.User().start_session(currUser)
+      return redirect("/analysis")
+
+
+
   return render_template(
-    'index.html',
+    'signin.html',
   )
 
 @app.route('/signup', methods = ["GET", "POST"])
 def signup():
+
+
   client = pymongo.MongoClient(
     "mongodb+srv://ErchisPatwardhan:Aaibaba**13@users.fszlz.mongodb.net/Users?retryWrites=true&w=majority")
   db = client.get_database('FinalBankUsers')
+  global userdataBase
   userdataBase = db.Users
 
   if (request.method == "POST"):
@@ -87,12 +119,16 @@ def signup():
 
     #Add the user to the mongoDB server
     if (userdataBase.insert_one(user)):
+
+      global currUser
+      currUser = user
       print("user succesfully added")
 
       # Start a session
-      ses = us.User.start_session(user)
+      ses = us.User().start_session(user)
+      print("session succesfully started")
 
-      redirect('/homepage')
+      return redirect('/analysis')
 
     else:
       return redirect('/')
@@ -107,6 +143,65 @@ def signup():
 @app.route('/homepage', methods = ['GET', 'POST'])
 def homepage():
   return render_template('index.html')
+
+
+@app.route('/analysis')
+def analysis():
+
+  #Access the mongoDB user and extract the access token
+  global access_token
+  access_token = currUser["accesstoken"]
+
+  #Fetch the transactions for 365 days
+  transactionHistoryFullYear = get_transactions(days = 365).json['transactions']
+  with open('Data/AMEXTransactions.json', 'w') as outfile:
+    json.dump(transactionHistoryFullYear, outfile)
+
+
+  #Get the transactions for the last 30 Days
+  transactionHistory30Days = get_transactions(days = 30).json['transactions']
+
+  #Get the data for the first chart
+  chart1 = ch1(transactionHistory30Days)
+  chart1JSON = json.dumps(chart1)
+  print("Chart 1: " + chart1JSON + "\n")
+
+  #Get the data for the second chart
+  chart2 = ch2(transactionHistoryFullYear)
+  chart2JSON = json.dumps(chart2)
+  print("Chart 2: " + chart2JSON + "\n")
+
+  #Get the data for the third chart
+  chart3 = ch3(transactionHistoryFullYear)
+  chart3JSON = json.dumps(chart3)
+  print("Chart 3: " + chart3JSON + "\n")
+
+  #Get the data for the fourth chart
+  chart4 = ch4(transactionHistory30Days)
+  chart4JSON = json.dumps(chart4)
+  print("Chart 4: " + chart4JSON + "\n")
+
+  #Get the data for the fifth chart
+  chart5 = ch5(transactionHistoryFullYear)
+  chart5JSON = json.dumps(chart5)
+  print("Chart 5: " + chart5JSON + "\n")
+
+  #Get the data for the sixth chart
+  chart6 = ch6(transactionHistory30Days)
+  chart6JSON = json.dumps(chart6)
+  print("Chart 6: " + chart6JSON + "\n")
+
+  return render_template(
+    'analysis.html',
+    chart1 = chart1,
+    chart2 = chart2,
+    chart3 = chart3,
+    chart4 = chart4,
+    chart5 = chart5,
+    chart6 = chart6
+  )
+
+
 
 #Code for 1st chart
 #Get the categorical spending of the last 30 Days
@@ -310,57 +405,7 @@ def ch6(transactionHistory):
   return transactions
 
 
-@app.route('/analysis.html')
-def analysis():
-  #Fetch the transactions for 365 days
 
-  transactionHistoryFullYear = get_transactions(days = 365).json['transactions']
-  with open('Data/AMEXTransactions.json', 'w') as outfile:
-    json.dump(transactionHistoryFullYear, outfile)
-
-
-  #Get the transactions for the last 30 Days
-  transactionHistory30Days = get_transactions(days = 30).json['transactions']
-
-  #Get the data for the first chart
-  chart1 = ch1(transactionHistory30Days)
-  chart1JSON = json.dumps(chart1)
-  print("Chart 1: " + chart1JSON + "\n")
-
-  #Get the data for the second chart
-  chart2 = ch2(transactionHistoryFullYear)
-  chart2JSON = json.dumps(chart2)
-  print("Chart 2: " + chart2JSON + "\n")
-
-  #Get the data for the third chart
-  chart3 = ch3(transactionHistoryFullYear)
-  chart3JSON = json.dumps(chart3)
-  print("Chart 3: " + chart3JSON + "\n")
-
-  #Get the data for the fourth chart
-  chart4 = ch4(transactionHistory30Days)
-  chart4JSON = json.dumps(chart4)
-  print("Chart 4: " + chart4JSON + "\n")
-
-  #Get the data for the fifth chart
-  chart5 = ch5(transactionHistoryFullYear)
-  chart5JSON = json.dumps(chart5)
-  print("Chart 5: " + chart5JSON + "\n")
-
-  #Get the data for the sixth chart
-  chart6 = ch6(transactionHistory30Days)
-  chart6JSON = json.dumps(chart6)
-  print("Chart 6: " + chart6JSON + "\n")
-
-  return render_template(
-    'analysis.html',
-    chart1 = chart1,
-    chart2 = chart2,
-    chart3 = chart3,
-    chart4 = chart4,
-    chart5 = chart5,
-    chart6 = chart6
-  )
 
 
 
@@ -373,7 +418,7 @@ def oauth_response():
 
 # We store the access_token in memory - in production, store it in a secure
 # persistent data store.
-access_token = None
+
 # The payment_id is only relevant for the UK Payment Initiation product.
 # We store the payment_id in memory - in production, store it in a secure
 # persistent data store.
