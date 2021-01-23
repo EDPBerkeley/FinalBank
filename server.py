@@ -74,7 +74,7 @@ def index():
   # return redirect("/signup")
   if (request.method == 'POST'):
     client = pymongo.MongoClient(
-      "mongodb+srv://ErchisPatwardhan:Aaibaba**13@users.fszlz.mongodb.net/Users?retryWrites=true&w=majority")
+      "mongodb+srv://ErchisPatwardhan:WPxWoQsqwFlas3Qx@users.fszlz.mongodb.net/Users?retryWrites=true&w=majority")
     db = client.get_database('FinalBankUsers')
     global userdataBase
     userdataBase = db.Users
@@ -104,7 +104,7 @@ def signup():
 
 
   client = pymongo.MongoClient(
-    "mongodb+srv://ErchisPatwardhan:Aaibaba**13@users.fszlz.mongodb.net/Users?retryWrites=true&w=majority")
+    "mongodb+srv://ErchisPatwardhan:WPxWoQsqwFlas3Qx@users.fszlz.mongodb.net/Users?retryWrites=true&w=majority")
   db = client.get_database('FinalBankUsers')
   global userdataBase
   userdataBase = db.Users
